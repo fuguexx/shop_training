@@ -1,11 +1,16 @@
 <?php
 
-namespace App\Models;
+// @formatter:off
+/**
+ * A helper file for your Eloquent Models
+ * Copy the phpDocs from this file to the correct Model,
+ * And remove them from this file, to prevent double declarations.
+ *
+ * @author Barry vd. Heuvel <barryvdh@gmail.com>
+ */
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
+namespace App\Models{
 /**
  * App\Models\User
  *
@@ -30,36 +35,30 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-class User extends Authenticatable
-{
-    use Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+	class User extends \Eloquent {}
 }
+
+namespace App\Models{
+/**
+ * App\Models\AdminUser
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AdminUser whereUpdatedAt($value)
+ */
+	class AdminUser extends \Eloquent {}
+}
+

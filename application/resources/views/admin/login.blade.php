@@ -1,6 +1,7 @@
 @extends('layouts.login')
 
 @section('content')
+    <!--管理者（admin/owner共有）のログインページ -->
     <form class="form-signin" method="POST" action="{{ route('admin.login') }}">
         @csrf
 

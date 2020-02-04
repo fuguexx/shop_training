@@ -21,7 +21,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">{{ config('app.name', 'Laravel') }}</a>
+    <a class="navbar-brand" href="/admin">{{ config('app.name', 'Shopping') }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,10 +30,10 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    管理者
+                    オーナー管理者
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">メニュー</a>
+                    <a class="dropdown-item" href="/admin/admin_users">管理者情報編集</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
                     <form id="logout-form" class="d-none" action="{{ route('admin.logout') }}" method="POST">
@@ -51,13 +51,23 @@
             <div class="sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            メニュー1
+                        <a class="nav-link" href="/admin/products">
+                            商品管理
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            メニュー2
+                        <a class="nav-link" href="/admin/product_categories">
+                            商品カテゴリ管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/users">
+                            顧客管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/admin_users">
+                            管理者管理
                         </a>
                     </li>
                 </ul>
