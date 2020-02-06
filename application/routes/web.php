@@ -16,13 +16,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 /* admin ログインページへのリダイレクト */
 Route::redirect('/', '/home');
 
-/* admin認証不要 */
+/* （ログインページ/ログインアクション）では、middlewareのguestを使用し、認証済みの場合にそのページへは遷移しないように制御している */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'guest:admin'], function () {
     Route::get('login', 'LoginController@showLoginForm')->name('login');
     Route::post('login', 'LoginController@login')->name('login');
 });
 
-/* adminログイン後 */
+/* adminログイン済みのユーザーのlogout、/admin/homeへの遷移ではmidllewareのAuthで認証をかけている */
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'auth:admin'], function () {
     Route::post('logout', 'LoginController@logout')->name('logout');
     Route::get('home', 'HomeController@index')->name('home');
@@ -31,14 +31,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
 /* adminログイン後のリダイレクト */
 Route::redirect('/admin', '/admin/home');
 
-/* 商品管理機能*/
-Route::resource('/admin/products','ProductController');
+/* 管理側の機能をまとめる（ 例： prefix：viewのパスがadmin/products, namespace:controllerはAdmin/Productcontroller, as:admin.products.のように
+　　パスに名前をつけている） */
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function(){
+    /* 商品管理機能*/
+    Route::resource('products','ProductController');
 
-/*　商品カテゴリ管理機能 */
-Route::resource('/admin/product_categories','ProductController');
+    /*　商品カテゴリ管理機能 */
+    Route::resource('product_categories','Product_CategoryController');
 
-/* 顧客管理機能 */
-Route::resource('/admin/users','UserController');
+    /* 顧客管理機能 */
+    Route::resource('users','UserController');
 
-/* 管理者管理機能 */
-Route::resource('/admin/admin_users','Admin_UserController');
+    /* 管理者管理機能 */
+    Route::resource('admin_users','Admin_UserController');
+});

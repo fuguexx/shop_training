@@ -35,6 +35,7 @@ return [
     |
     */
 
+    /* guard に adminを追加している (providerに関しては、下のproviders以下で指定) */
     'guards' => [
         'user' => [
             'driver' => 'session',
@@ -70,6 +71,7 @@ return [
     |
     */
 
+    /* ここで、providerをeloquent、それぞれ対応するmodelを指定 */
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
@@ -102,12 +104,18 @@ return [
     |
     */
 
+    /* adminsも追加している */
     'passwords' => [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

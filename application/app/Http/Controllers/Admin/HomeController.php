@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {

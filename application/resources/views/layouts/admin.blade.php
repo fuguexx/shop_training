@@ -20,64 +20,64 @@
     <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-    <a class="navbar-brand" href="/admin">{{ config('app.name', 'Shopping') }}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin">{{ config('app.name', 'Shopping') }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    オーナー管理者
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/admin/admin_users">管理者情報編集</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
-                    <form id="logout-form" class="d-none" action="{{ route('admin.logout') }}" method="POST">
-                        @csrf
-                    </form>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        オーナー管理者
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/admin/admin_users">管理者情報編集</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
+                        <form id="logout-form" class="d-none" action="{{ route('admin.logout') }}" method="POST">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/products">
+                                商品管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/product_categories">
+                                商品カテゴリ管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/users">
+                                顧客管理
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/admin/admin_users">
+                                管理者管理
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+            </nav>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/products">
-                            商品管理
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/product_categories">
-                            商品カテゴリ管理
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/users">
-                            顧客管理
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/admin_users">
-                            管理者管理
-                        </a>
-                    </li>
-                </ul>
+            <div class="container-fluid">
+                @yield('content')
             </div>
-        </nav>
-
-        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
-            @yield('content')
-        </main>
+        </div>
     </div>
-</div>
 </body>
 </html>
