@@ -79,13 +79,13 @@
                     <tr>
                         <td>1</td>
                         <td>デジタルミュージック</td>
-                        <td><a href="{{ route('admin.products.show') }}">non voluptate velit aut ipsa</a></td>
+                        <td>non voluptate velit aut ipsa</td>
                         <td>¥5,295</td>
                     </tr>
                     <tr>
                         <td>2</td>
                         <td>デジタルミュージック</td>
-                        <td><a href="{{ route('admin.products.show') }}">impedit repellat quo dolore omnis</a></td>
+                        <td>impedit repellat quo dolore omnis</td>
                         <td>¥4,809</td>
                     </tr>
                 </tbody>
@@ -97,21 +97,21 @@
                     </li>
 
                     <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=2') }}">2</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=3') }}">3</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=4') }}">4</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=5') }}">5</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=6') }}">6</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=7') }}">7</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=8') }}">8</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=2') }}">2</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=3') }}">3</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=4') }}">4</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=5') }}">5</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=6') }}">6</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=7') }}">7</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=8') }}">8</a></li>
 
                     <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
 
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=37') }}">37</a></li>
-                    <li class="page-item"><a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=38') }}">38</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=37') }}">37</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=38') }}">38</a></li>
 
                     <li class="page-item">
-                        <a class="page-link" href="{{ route('admin.products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=2') }}" rel="next" aria-label="次 »">›</a>
+                        <a class="page-link" href="{{ url('/admin/products'.'?product_category=all&amp;name=&amp;price=&amp;price_compare=gteq&amp;sort=id-asc&amp;page_unit=10&amp;page=2') }}" rel="next" aria-label="次 »">›</a>
                     </li>
                 </ul>
             </nav>

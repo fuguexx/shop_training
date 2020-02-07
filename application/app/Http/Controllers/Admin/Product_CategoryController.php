@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductCategoriesRequest;
+use App\Models\ProductCategory;
 
 class Product_CategoryController extends Controller
 {
@@ -11,74 +13,52 @@ class Product_CategoryController extends Controller
         $this->middleware('auth:admin');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $categories = ProductCategory::query();
+        $categories->where('name',$request->get('name'));
+
+
+        $productCategories = ProductCategory::paginate(10);
+
+        return view('admin.product_categories.index', compact('productCategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin.product_categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(ProductCategoriesRequest $request)
     {
-        //
+        $ProductCategory = new ProductCategory;
+
+        $ProductCategory->fill($request->all())->save();
+
+        return redirect('admin/product_categories/'.$ProductCategory->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(ProductCategory $ProductCategory)
     {
-        //
+        return view('admin.product_categories.show', ['ProductCategory' => $ProductCategory]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(ProductCategory $ProductCategory)
     {
-        //
+        return view('admin.product_categories.edit',['ProductCategory' => $ProductCategory]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(ProductCategoriesRequest $request, ProductCategory $ProductCategory)
     {
-        //
+        $ProductCategory->update($request->all());
+
+        return redirect('admin/product_categories/'.$ProductCategory->id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function destroy(ProductCategory $ProductCategory)
     {
-        //
+        $ProductCategory->delete();
+
+        return redirect('admin/product_categories');
     }
 }
