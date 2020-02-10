@@ -2,6 +2,7 @@
 @section('content')
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <form class="shadow p-3 mt-3" method="get" action="{{ route('admin.product_categories.index') }}">
+         @csrf
             <div class="row">
                 <div class="col-md mb-3">
                     <input type="text" class="form-control" id="name" name="name" value="" placeholder="名称">
@@ -46,11 +47,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($productCategories as $productCategorie)
+                    @foreach($productCategories as $productCategory)
                         <tr>
-                            <td>{{ $productCategorie->id }}</td>
-                            <td><a href="{{ url('/admin/product_categories/'.$productCategorie->id) }}">{{ $productCategorie->name }}</a></td>
-                            <td>{{ $productCategorie->order_no }}</td>
+                            <td>{{ $productCategory->id }}</td>
+                            <td><a href="{{ url('/admin/product_categories/'.$productCategory->id) }}">{{ $productCategory->name }}</a></td>
+                            <td>{{ $productCategory->order_no }}</td>
                         </tr>
                     @endforeach
                 </tbody>

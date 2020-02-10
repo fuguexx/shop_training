@@ -49,24 +49,24 @@
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
                 <div class="sidebar-sticky">
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column" id="navMenus">
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/products">
+                            <a class="nav-link {{ strpos(Request::url(), url('/admin/products')) !== false ? 'active' : null }}" href="/admin/products">
                                 商品管理
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/admin/product_categories">
+                            <a class="nav-link {{ strpos(Request::url(), url('/admin/product_categories')) !== false ? 'active' : null }}" href="/admin/product_categories">
                                 商品カテゴリ管理
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/admin/users">
+                            <a class="nav-link {{ strpos(Request::url(), url('/admin/users')) !== false ? 'active' : null }}" href="/admin/users">
                                 顧客管理
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="/admin/admin_users">
+                            <a class="nav-link {{ strpos(Request::url(), url('/admin/admin_users')) !== false ? 'active' : null }}" href="/admin/admin_users">
                                 管理者管理
                             </a>
                         </li>
@@ -81,3 +81,10 @@
     </div>
 </body>
 </html>
+@section('after_js')
+$("#navMenus").on('click', '.nav-item', function () {
+    $("#navMenus nav-item.active").removeClass("active");
+    $(this).addClass("active");
+});
+@endsection
+

@@ -8,18 +8,33 @@ use App\Models\ProductCategory;
 
 class Product_CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:admin');
-    }
-
     public function index(Request $request)
     {
-        $categories = ProductCategory::query();
-        $categories->where('name',$request->get('name'));
-
-
         $productCategories = ProductCategory::paginate(10);
+
+        //検索フィールド
+        $searchParam = [
+            'name' => '',
+            'sort' => '',
+            'page_unit' => ''
+        ];
+
+        if($request != NULL && $request->isMethod('get')) {
+            $searchParam = $request->all();
+        }
+
+        switch ($searchParam) {
+            case $searchParam['name'] != NULL:
+                $param = ProductCategory::FilterLikeName($searchParam['name'])->get();
+                break;
+            case $searchParam['name'] != NULL && $searchParam['sort'] === "id-asc":
+                $param = ProductCategory::FilterLikeName($searchParam['name'])->OrderByIdAsc($searchParam['sort'])->get();
+                break;
+            case $searchParam['name'] != NULL && $searchParam['sort'] === "id-asc" && $searchParam['page_unit'] === "10":
+                $param = ProductCategory::FilterLikeName($searchParam['name'])->OrderByIdAsc($searchParam['sort'])->take(10);
+                break;
+            }
+
 
         return view('admin.product_categories.index', compact('productCategories'));
     }
