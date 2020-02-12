@@ -41,7 +41,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\AdminUser
+ * App\Models\AdminUsers
  *
  * @property int $id
  * @property string $name

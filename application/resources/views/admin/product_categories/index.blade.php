@@ -2,7 +2,6 @@
 @section('content')
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <form class="shadow p-3 mt-3" method="get" action="{{ route('admin.product_categories.index') }}">
-         @csrf
             <div class="row">
                 <div class="col-md mb-3">
                     <input type="text" class="form-control" id="name" name="name" value="" placeholder="名称">
@@ -58,18 +57,8 @@
             </table>
             <nav>
                 <ul class="pagination">
-                    <li class="page-item disabled" aria-disabled="true" aria-label="« 前">
-                        <span class="page-link" aria-hidden="true">‹</span>
-                    </li>
-
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=3">3</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=4">4</a></li>
-
-                    <li class="page-item">
-                        <a class="page-link" href="/admin/product_categorie?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=2" rel="next" aria-label="次 »">›</a>
-                    </li>
+                    <li class="page-item disabled" aria-disabled="true" aria-label="« 前"></li>
+                    {{ $productCategories->appends(['name' => $name, 'sort' => $sort, 'pageUnit' => $pageUnit])->links() }}
                 </ul>
             </nav>
         </div>

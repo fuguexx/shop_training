@@ -33,7 +33,7 @@ Route::redirect('/admin', '/admin/home');
 
 /* 管理側の機能をまとめる（ 例： prefix：viewのパスがadmin/products, namespace:controllerはAdmin/Productcontroller, as:admin.products.のように
 　　パスに名前をつけている） */
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function(){
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'auth:admin'], function(){
     /* 商品管理機能*/
     Route::resource('products','ProductController')->middleware('auth:admin');
 

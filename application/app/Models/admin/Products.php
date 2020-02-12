@@ -4,16 +4,14 @@ namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Products extends Model
 {
-    protected $table = 'products';
-
     protected $fillable = [
         'image_path',
         'name',
         'price',
         'description',
-        'product_category_id'
+        'product_category_id',
     ];
 
     protected $hidden = [
@@ -25,8 +23,9 @@ class Product extends Model
     protected $dates = [
     ];
 
-    /* Product:model(product_category_id) & ProductCategory:model(id)のリレーション */
-    public function category(){
-        return $this->hasOne('ProductCategory::class');
+    /* Products:model(product_category_id) & ProductCategories:model(id)のリレーション */
+    public function ProductCategory()
+    {
+        return $this->belongsTo(ProductCategories::class);
     }
 }
