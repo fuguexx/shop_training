@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCategoriesRequest;
-use App\Models\ProductCategory;
+use App\Models\admin\ProductCategory;
 
+<<<<<<< Updated upstream:application/app/Http/Controllers/Admin/ProductCategoryController.php
 
+=======
+>>>>>>> Stashed changes:application/app/Http/Controllers/Admin/Product_CategoryController.php
 class ProductCategoryController extends Controller
 {
     public function index(Request $request)
     {
+<<<<<<< Updated upstream:application/app/Http/Controllers/Admin/ProductCategoryController.php
         $name = $request->get('name', null);
         $sort = $request->get('sort', 'id-asc');
         $pageUnit = (int)$request->get('pageUnit', '10');
@@ -31,6 +35,33 @@ class ProductCategoryController extends Controller
                 break;
             case 'order-no-asc':
                 $query = $query->orderBy('order_no', 'ASC');
+=======
+        $productCategories = ProductCategory::paginate(10);
+
+        $name = $request->get('name',null);
+        $sort = $request->get('sort','id-asc');
+        $pageUnit = $request->get('pageUnit', 10);
+
+        $productCategories = ProductCategory::all();
+        switch ($sort) {
+            case 'id-asc':
+                $productCategories = $productCategories->oder('id','ASC');
+                break;
+            case 'id-desc':
+                $productCategories = $productCategories->oder('id','DESC');
+                break;
+            case 'name-asc':
+                $productCategories = $productCategories->oder('name','ASC');
+                break;
+            case 'name-desc':
+                $productCategories = $productCategories->oder('name','DESC');
+                break;
+            case 'order-no-asc':
+                $productCategories = $productCategories->oder('order_no','ASC');
+                break;
+            case 'order-no-desc':
+                $productCategories = $productCategories->oder('order_no','DESC');
+>>>>>>> Stashed changes:application/app/Http/Controllers/Admin/Product_CategoryController.php
                 break;
             case 'order-no-desc':
                 $query = $query->orderBy('order_no', 'DESC');
@@ -57,11 +88,9 @@ class ProductCategoryController extends Controller
 
     public function store(ProductCategoriesRequest $request)
     {
-        $ProductCategory = new ProductCategory;
+        $productCategory = ProductCategory::create($request->all());
 
-        $ProductCategory->fill($request->all())->save();
-
-        return redirect('admin/product_categories/'.$ProductCategory->id);
+        return redirect('admin/product_categories/'.$productCategory->id);
     }
 
     public function show(ProductCategory $ProductCategory)
