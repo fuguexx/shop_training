@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCategoriesRequest;
-use App\Models\admin\ProductCategories;
+use App\Models\admin\ProductCategory;
 
 class ProductCategoryController extends Controller
 {
@@ -14,7 +14,7 @@ class ProductCategoryController extends Controller
         $sort = $request->get('sort', 'id-asc');
         $pageUnit = (int)$request->get('pageUnit', '10');
 
-        $query = ProductCategories::query();
+        $query = ProductCategory::query();
         switch($sort) {
             case 'id-asc':
                 $query = $query->orderBy('id', 'ASC');
@@ -54,29 +54,29 @@ class ProductCategoryController extends Controller
 
     public function store(ProductCategoriesRequest $request)
     {
-        $productCategory = ProductCategories::create($request->all());
+        $productCategory = ProductCategory::create($request->all());
 
         return redirect('admin/product_categories/'.$productCategory->id);
     }
 
-    public function show(ProductCategories $ProductCategory)
+    public function show(ProductCategory $ProductCategory)
     {
         return view('admin.product_categories.show', compact('ProductCategory'));
     }
 
-    public function edit(ProductCategories $ProductCategory)
+    public function edit(ProductCategory $ProductCategory)
     {
         return view('admin.product_categories.edit',compact('ProductCategory'));
     }
 
-    public function update(ProductCategoriesRequest $request, ProductCategories $ProductCategory)
+    public function update(ProductCategoriesRequest $request, ProductCategory $ProductCategory)
     {
         $ProductCategory->update($request->all());
 
         return redirect('admin/product_categories/'.$ProductCategory->id);
     }
 
-    public function destroy(ProductCategories $ProductCategory)
+    public function destroy(ProductCategory $ProductCategory)
     {
         $ProductCategory->delete();
 

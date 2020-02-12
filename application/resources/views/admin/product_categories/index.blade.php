@@ -57,7 +57,6 @@
             </table>
             <nav>
                 <ul class="pagination">
-                    <li class="page-item disabled" aria-disabled="true" aria-label="« 前"></li>
                     {{ $productCategories->appends(['name' => $name, 'sort' => $sort, 'pageUnit' => $pageUnit])->links() }}
                 </ul>
             </nav>
