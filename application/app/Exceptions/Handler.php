@@ -57,7 +57,6 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
-    /* 以下、追加コード */
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if($request->expectsJson()) {

@@ -26,10 +26,7 @@ class ProductCategory extends Model
 {
     protected $table = 'product_categories';
 
-    protected $fillable = [
-        'name',
-        'order_no'
-    ];
+    protected $fillable = ['name', 'order_no'];
 
     protected $hidden = [
     ];
@@ -40,32 +37,8 @@ class ProductCategory extends Model
     protected $dates = [
     ];
 
-    //以下、productcategory scope一覧
-    public function scopeFilterLikeName($query,$name){
+    public function scopeFilterLikeName($query, $name)
+    {
         return $query->where('name','like','%{$name}%');
-    }
-
-    public function scopeOrderByIdAsc($query){
-        return $query->orderBy('id','asc');
-    }
-
-    public function scopeOrderByIdDesc($query){
-        return $query->orderBy('id','desc');
-    }
-
-    public function scopeOrderByNameAsc($query){
-        return $query->orderBy('name','asc');
-    }
-
-    public function scopeOrderByNameDesc($query){
-        return $query->orderBy('name','desc');
-    }
-
-    public function scopeOrderByOrderNoAsc($query){
-        return $query->orderBy('order_no','asc');
-    }
-
-    public function scopeOrderByOrderNoDesc($query){
-        return $query->orderBy('order_no','desc');
     }
 }

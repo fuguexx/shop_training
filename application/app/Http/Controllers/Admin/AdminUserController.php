@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class Admin_UserController extends Controller
+class AdminUserController extends Controller
 {
     public function __construct()
     {

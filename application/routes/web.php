@@ -38,11 +38,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], fu
     Route::resource('products','ProductController')->middleware('auth:admin');
 
     /*　商品カテゴリ管理機能 */
-    Route::resource('product_categories','Product_CategoryController')->middleware('auth:admin');
+    Route::resource('product_categories','ProductCategoryController')->middleware('auth:admin');
 
     /* 顧客管理機能 */
     Route::resource('users','UserController')->middleware('auth:admin');
 
     /* 管理者管理機能 */
-    Route::resource('admin_users','Admin_UserController')->middleware('auth:admin');
+    Route::resource('admin_users','AdminUserController')->middleware('auth:admin');
 });

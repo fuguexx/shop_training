@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <select class="custom-select" name="page_unit">
+                    <select class="custom-select" name="pageUnit">
                         <option value="10" selected="">表示: 10件</option>
                         <option value="20">表示: 20件</option>
                         <option value="50">表示: 50件</option>
@@ -62,13 +62,13 @@
                         <span class="page-link" aria-hidden="true">‹</span>
                     </li>
 
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;page_unit=10&amp;page=1">1</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;page_unit=10&amp;page=2">2</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;page_unit=10&amp;page=3">3</a></li>
-                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;page_unit=10&amp;page=4">4</a></li>
+                    <li class="page-item active" aria-current="page"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=1">1</a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=2">2</a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=3">3</a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/product_categories?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=4">4</a></li>
 
                     <li class="page-item">
-                        <a class="page-link" href="/admin/product_categorie?name=&amp;sort=id-asc&amp;page_unit=10&amp;page=2" rel="next" aria-label="次 »">›</a>
+                        <a class="page-link" href="/admin/product_categorie?name=&amp;sort=id-asc&amp;pageUnit=10&amp;page=2" rel="next" aria-label="次 »">›</a>
                     </li>
                 </ul>
             </nav>

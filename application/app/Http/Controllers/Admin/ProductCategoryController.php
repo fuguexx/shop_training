@@ -6,35 +6,46 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductCategoriesRequest;
 use App\Models\ProductCategory;
 
-class Product_CategoryController extends Controller
+
+class ProductCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $productCategories = ProductCategory::paginate(10);
+        $name = $request->get('name', null);
+        $sort = $request->get('sort', 'id-asc');
+        $pageUnit = (int)$request->get('pageUnit', '10');
 
-        //検索フィールド
-        $searchParam = [
-            'name' => '',
-            'sort' => '',
-            'page_unit' => ''
-        ];
-
-        if($request != NULL && $request->isMethod('get')) {
-            $searchParam = $request->all();
+        $query = ProductCategory::query();
+        switch($sort){
+            case 'id-asc':
+                $query = $query->orderBy('id', 'ASC');
+                break;
+            case 'id-desc':
+                $query = $query->orderBy('id', 'DESC');
+                break;
+            case 'name-asc':
+                $query = $query->orderBy('name', 'ASC');
+                break;
+            case 'name-desc':
+                $query = $query->orderBy('name', 'DESC');
+                break;
+            case 'order-no-asc':
+                $query = $query->orderBy('order_no', 'ASC');
+                break;
+            case 'order-no-desc':
+                $query = $query->orderBy('order_no', 'DESC');
+                break;
         }
 
-        switch ($searchParam) {
-            case $searchParam['name'] != NULL:
-                $param = ProductCategory::FilterLikeName($searchParam['name'])->get();
-                break;
-            case $searchParam['name'] != NULL && $searchParam['sort'] === "id-asc":
-                $param = ProductCategory::FilterLikeName($searchParam['name'])->OrderByIdAsc($searchParam['sort'])->get();
-                break;
-            case $searchParam['name'] != NULL && $searchParam['sort'] === "id-asc" && $searchParam['page_unit'] === "10":
-                $param = ProductCategory::FilterLikeName($searchParam['name'])->OrderByIdAsc($searchParam['sort'])->take(10);
-                break;
-            }
+        if($name != null){
+            $query->FilterLikeName($name);
+        }
 
+        if($pageUnit != null){
+            $query->paginate($pageUnit);
+        }
+
+        $productCategories = $query->get();
 
         return view('admin.product_categories.index', compact('productCategories'));
     }
