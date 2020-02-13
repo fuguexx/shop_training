@@ -4,8 +4,8 @@
         <div class="row pt-3">
             <div class="col-sm">
                 <form action="{{ url('admin/product_categories') }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('POST') }}
+                    @csrf
+                    @method('POST')
 
                     <div class="form-group">
                         <label for="name">名称</label>

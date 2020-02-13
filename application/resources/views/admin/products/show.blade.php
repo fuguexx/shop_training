@@ -1,5 +1,4 @@
 @extends('layouts.admin')
-
 @section('content')
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <ul class="list-inline pt-3">
@@ -7,44 +6,43 @@
                 <a href="{{ route('admin.products.index') }}" class="btn btn-light">一覧</a>
             </li>
             <li class="list-inline-item">
-                <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-success">編集</a>
+                <a href="{{ url('admin/products/'.$Product->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
             <li class="list-inline-item">
-                <form action="{{ url('admin/products/'.$product->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
+                <form action="{{ url('admin/products/'.$Product->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
                 </form>
             </li>
         </ul>
-        <!-- 途中-->
 
-        <table class="table">
+        <table class="table" style="width:100%;">
             <tbody>
                 <tr>
-                    <th>ID</th>
-                    <td>11</td>
+                    <th style="width:10%;">ID</th>
+                    <td style="width:90%;">{{ $Product->id }}</td>
                 </tr>
                 <tr>
-                    <th>商品カテゴリ</th>
-                    <td>Android アプリ</td>
+                    <th style="width:10%;">商品カテゴリ</th>
+                    <td style="width:90%;">{{ $categoryName->ProductCategory->name }}</td>
                 </tr>
                 <tr>
-                    <th>名称</th>
-                    <td>cumque sunt rerum magnam perferendis</td>
+                    <th style="width:10%;">名称</th>
+                    <td style="width:90%;">{{ $Product->name }}</td>
                 </tr>
                 <tr>
-                    <th>価格</th>
-                    <td>¥58,762</td>
+                    <th style="width:10%;">価格</th>
+                    <td style="width:90%;">¥{{ number_format($Product->price) }}</td>
                 </tr>
                 <tr>
-                    <th>説明</th>
-                    <td>Totam nobis aut aliquid commodi. Ea et cumque nam sequi. Explicabo delectus dolor facilis magnam voluptatem.</td>
+                    <th style="width:10%;">説明</th>
+                    <td style="width:90%;">{{ $Product->description }}</td>
                 </tr>
                 <tr>
-                    <th>イメージ</th>
-                    <td>
-                        <img class="img-thumbnail" src="http://13.113.124.239/storage/product_images/GfrFEWvr2Fp5rSY4a8pkyKbcioo6lvWqty0SmJQZ.jpeg">
+                    <th style="width:10%;">イメージ</th>
+                    <td style="width:90%;">
+                        <img class="img-thumbnail" src="{{ $photo }}">
                     </td>
                 </tr>
             </tbody>

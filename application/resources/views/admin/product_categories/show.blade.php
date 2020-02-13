@@ -10,8 +10,8 @@
             </li>
             <li class="list-inline-item">
                 <form action="{{ url('admin/product_categories/'.$ProductCategory->id) }}" method="POST">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
+                    @csrf
+                    @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
                 </form>
             </li>

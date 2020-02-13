@@ -23,9 +23,13 @@ class Product extends Model
     protected $dates = [
     ];
 
-    /* Products:model(product_category_id) & ProductCategories:model(id)のリレーション */
     public function ProductCategory()
     {
-        return $this->belongsTo(ProductCategories::class);
+        return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function scopeFilterLikeName($query, $name)
+    {
+        return $query->where('name','like','%'.$name.'%');
     }
 }
