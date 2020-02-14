@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::post('login', 'LoginController@login')->name('login');
 });
 
-/* adminログイン済みのユーザーのlogout、/admin/homeへの遷移ではmidllewareのAuthで認証をかけている */
+/* adminログイン済みのユーザーのlogout、/admin/homeへの遷移ではmiddlewareのAuthで認証をかけている */
 Route::prefix('admin')->namespace('Admin')->as('admin.')->middleware(['auth:admin'])->group(function(){
     Route::post('logout', 'LoginController@logout')->name('logout');
     Route::get('home', 'HomeController@index')->name('home');
@@ -31,8 +31,6 @@ Route::prefix('admin')->namespace('Admin')->as('admin.')->middleware(['auth:admi
 /* adminログイン後のリダイレクト */
 Route::redirect('/admin', '/admin/home');
 
-/* 管理側の機能をまとめる（ 例： prefix：viewのパスがadmin/products, namespace:controllerはAdmin/Productcontroller, as:admin.products.のように
-　　パスに名前をつけている） */
 Route::prefix('admin')->namespace('Admin')->as('admin.')->middleware(['auth:admin'])->group(function(){
     Route::resource('products','ProductController');
     Route::resource('product_categories','ProductCategoryController');

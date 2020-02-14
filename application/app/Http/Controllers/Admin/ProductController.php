@@ -13,10 +13,15 @@ class ProductController extends Controller
     {
         $productCategories = ProductCategory::all();
 
-        $product_category = $request->get('product_category','all');
+        $productCategory = $request->get('productCategory','all');
         $name = $request->get('name', '');
+
         $price = $request->get('price', '');
-        $price_compare = $request->get('price_compare', 'gteq');
+        if($price != '') {
+            $price = (int)$price;
+        }
+
+        $priceCompare = $request->get('priceCompare', 'gteq');
         $sort = $request->get('sort', 'id-asc');
         $pageUnit = (int)$request->get('pageUnit', '10');
 
@@ -48,28 +53,16 @@ class ProductController extends Controller
                 break;
         }
 
-        switch($price_compare) {
-            case 'gteq':
-                $query = $query->where('price', '>=', $price);
-                break;
-            case 'lteq':
-                $query = $query->where('price', '<=', $price);
-                break;
+        if($productCategory != 'all') {
+            $query = $query->where('product_category_id', $productCategory);
         }
 
-        if($product_category != 'all'){
-            $query->where('product_category_id', $product_category);
-        }
+            $products = $query->whereLikeName($name)
+                ->wherePriceCompare($priceCompare, $price)
+                ->paginate($pageUnit);
 
-        if($name != null){
-            $query->FilterLikeName($name);
-        }
-
-        if($pageUnit != null){
-            $products = $query->Paginate($pageUnit);
-        }
-
-        return view('admin.products.index', compact('products','productCategories'));
+        return view('admin.products.index',
+            compact('products','productCategories', 'productCategory', 'name', 'price', 'priceCompare', 'sort', 'pageUnit'));
     }
 
     public function create()
@@ -81,7 +74,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        if($request->image_path != NULL){
+        if($request->image_path != NULL) {
             $path = $request->file('image_path')->store('public/photo');
         }
 
@@ -116,11 +109,11 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $Product)
     {
-        if($request->image_path != NULL){
+        if($request->image_path != NULL) {
             $path = $request->file('image_path')->store('public/photo');
         }
 
-        if($request->delete_image == "1"){
+        if($request->delete_image == "1") {
             Product::where('id', $request->id)->update(['image_path' => NULL]);
         }
 

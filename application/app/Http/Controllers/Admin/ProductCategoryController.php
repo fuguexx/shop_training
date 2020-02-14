@@ -36,11 +36,11 @@ class ProductCategoryController extends Controller
                 break;
         }
 
-        if($name != null){
+        if($name != null) {
             $query->FilterLikeName($name);
         }
 
-        if($pageUnit != null){
+        if($pageUnit != null) {
             $productCategories = $query->Paginate($pageUnit);
         }
 
