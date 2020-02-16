@@ -8,9 +8,38 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.users.index');
+        $name = $request->get('name', '');
+        $email = $request->get('email', '');
+        $sort = $request->get('sort', 'id-asc');
+        $pageUnit = (int)$request->get('pageUnit', '10');
+
+        $query = User::query();
+        switch($sort) {
+            case 'id-asc':
+                $query = $query->orderby('id', 'ASC');
+                break;
+            case 'id-desc':
+                $query = $query->orderBy('id', 'DESC');
+                break;
+            case 'name-asc':
+                $query = $query->orderBy('name', 'ASC');
+                break;
+            case 'name-desc':
+                $query = $query->orderBy('name', 'DESC');
+                break;
+            case 'email-asc':
+                $query = $query->orderBy('email', 'ASC');
+                break;
+            case 'email-desc':
+                $query = $query->orderBy('email', 'DESC');
+                break;
+        }
+
+        $users = $query->likeName($name)->likeEmail($email)->paginate($pageUnit);
+
+        return view('admin.users.index', compact('users', 'name', 'email', 'sort', 'pageUnit'));
     }
 
     /**
@@ -53,9 +82,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $User)
     {
-        //
+        return view('admin.users.edit', compact('User'));
     }
 
     /**
@@ -65,9 +94,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, User $User)
     {
-        //
+        $User->update($request->all());
+
+        return redirect('admin/users/'.$User->id);
     }
 
     /**
@@ -76,8 +107,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $User)
     {
-        //
+        $User->delete();
+
+        return redirect('admin/users');
     }
 }

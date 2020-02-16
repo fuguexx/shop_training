@@ -4,29 +4,29 @@
         <form class="shadow p-3 mt-3" action="{{ route('admin.users.index') }}">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="名称">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $name) }}" placeholder="名称">
                 </div>
                 <div class="col-md mb-3">
-                    <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス">
+                    <input type="text" class="form-control" id="email" name="email" value="{{ old('email', $email) }}" placeholder="メールアドレス">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <select class="custom-select" name="sort">
-                        <option value="id-asc" selected="">並び替え: ID昇順</option>
-                        <option value="id-desc">並び替え: ID降順</option>
-                        <option value="name-asc">並び替え: 名称昇順</option>
-                        <option value="name-desc">並び替え: 名称降順</option>
-                        <option value="email-asc">並び替え: メールアドレス昇順</option>
-                        <option value="email-desc">並び替え: メールアドレス降順</option>
+                        <option value="id-asc" selected="" @if( old('sort', $sort) == "id-asc") selected @endif>並び替え: ID昇順</option>
+                        <option value="id-desc" @if( old('sort', $sort) == "id-desc") selected @endif>並び替え: ID降順</option>
+                        <option value="name-asc" @if( old('sort', $sort) == "name-asc") selected @endif>並び替え: 名称昇順</option>
+                        <option value="name-desc" @if( old('sort', $sort) == "name-desc") selected @endif>並び替え: 名称降順</option>
+                        <option value="email-asc" @if( old('sort', $sort) == "email-asc") selected @endif>並び替え: メールアドレス昇順</option>
+                        <option value="email-desc" @if( old('sort', $sort) == "email-desc") selected @endif>並び替え: メールアドレス降順</option>
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <select class="custom-select" name="page_unit">
-                        <option value="10" selected="">表示: 10件</option>
-                        <option value="20">表示: 20件</option>
-                        <option value="50">表示: 50件</option>
-                        <option value="100">表示: 100件</option>
+                    <select class="custom-select" name="pageUnit">
+                        <option value="10" selected="" @if( old('pageUnit', $pageUnit) == "10") selected @endif>表示: 10件</option>
+                        <option value="20" @if( old('pageUnit', $pageUnit) == "20") selected @endif>表示: 20件</option>
+                        <option value="50" @if( old('pageUnit', $pageUnit) == "50") selected @endif>表示: 50件</option>
+                        <option value="100" @if( old('pageUnit', $pageUnit) == "100") selected @endif>表示: 100件</option>
                     </select>
                 </div>
                 <div class="col-sm mb-3">
@@ -49,11 +49,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><a href="http://13.113.124.239/admin/users/1">顧客</a></td>
-                        <td>user@a.com</td>
-                    </tr>
+                    @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td><a href="{{ url('/admin/users/'.$user->id) }}">{{ $user->name }}</a></td>
+                            <td>{{ $user->email }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             <nav>

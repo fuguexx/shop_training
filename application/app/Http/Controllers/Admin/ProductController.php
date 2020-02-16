@@ -22,8 +22,9 @@ class ProductController extends Controller
         }
 
         $priceCompare = $request->get('priceCompare', 'gteq');
-        $sort = $request->get('sort', 'id-asc');
         $pageUnit = (int)$request->get('pageUnit', '10');
+
+        $sort = $request->get('sort', 'id-asc');
 
         $query = Product::query();
         switch($sort) {
