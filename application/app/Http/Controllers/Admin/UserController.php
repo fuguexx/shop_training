@@ -104,8 +104,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request, User $User)
     {
-        dd($request->validated());
-        $User->update($request->all());
+        $User->update($request->updateParameters());
 
 
         return redirect('admin/users/'.$User->id);
