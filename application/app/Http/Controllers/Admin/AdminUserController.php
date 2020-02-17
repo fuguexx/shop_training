@@ -10,7 +10,7 @@ class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
-        
+        return view('admin.admin_users.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.admin_users.create');
     }
 
     /**

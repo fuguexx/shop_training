@@ -60,7 +60,7 @@
             </table>
             <nav>
                 <ul class="pagination">
-
+                    {{ $users->appends(['name' => $name, 'email' => $email, 'sort' => $sort, 'pageUnit' => $pageUnit])->links() }}
                 </ul>
             </nav>
         </div>

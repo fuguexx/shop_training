@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -58,9 +60,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(StoreRequest $request)
     {
-        $user = User::create($request->all());
+        $hashedPassword = Hash::make($request->get('password'));
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $hashedPassword,
+        ]);
 
         return redirect('admin/users/'.$user->id);
     }
@@ -94,9 +102,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, User $User)
+    public function update(UpdateRequest $request, User $User)
     {
+        dd($request->validated());
         $User->update($request->all());
+
 
         return redirect('admin/users/'.$User->id);
     }

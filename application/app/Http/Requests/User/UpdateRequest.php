@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,11 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'alpha_dash', 'alpha_num', 'min:4', 'confirmed'],
-            'password_confirmation' => ['required'],
+            'name' => ['required', 'string', 'max:255',],
+            'email' => ['required', 'string', 'email', 'max:255',
+                Rule::unique('users')->ignore($this->id),],
+            'password' => ['nullable', 'alpha_dash', 'alpha_num', 'min:4',],
+            'password_confirmation' => ['nullable',],
         ];
     }
 
@@ -42,13 +44,8 @@ class UserRequest extends FormRequest
             'email.email' => 'メールアドレスの形式で入力して下さい。',
             'email.max:255' => 'メールアドレスは、２５５文字以内で入力して下さい。',
             'email.unique:users' => '登録済みのメールアドレスです。',
-            'password.required' => 'パスワードは、必ず指定して下さい。',
             'password.alpha_num' => 'パスワードは、英数字で指定して下さい。',
             'password.min:4' => 'パスワードは、4文字以上にして下さい。',
-            'password.confirmed' => 'パスワードとパスワード（確認）が一致しません。',
         ];
     }
 }
-
-
-
