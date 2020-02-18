@@ -10,13 +10,13 @@
                     <div class="form-group">
                         <label for="name">名称</label>
                         <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}" placeholder="名称" autocomplete="name" autofocus="">
-                        @error('name')<strong style="color:#FF0000;">{{ $message }}</strong>@enderror
+                        @error('name')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="order-no">並び順番号</label>
                         <input type="number" class="form-control " id="order-no" name="order_no" value="{{ old('order_no') }}" placeholder="並び順番号">
-                        @error('order_no')<strong style="color:#FF0000;">{{ $message }}</strong>@enderror
+                        @error('order_no')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <hr class="mb-3">

@@ -6,10 +6,10 @@
                 <a href="{{ route('admin.users.index') }}" class="btn btn-light">一覧</a>
             </li>
             <li class="list-inline-item">
-                <a href="{{ url('admin/users/'.$User->id.'/edit') }}" class="btn btn-success">編集</a>
+                <a href="{{ url('admin/users/'.$user->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
             <li class="list-inline-item">
-                <form action="{{ url('admin/users/'.$User->id) }}" method="POST">
+                <form action="{{ url('admin/users/'.$user->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
@@ -21,15 +21,15 @@
             <tbody>
                 <tr>
                     <th>ID</th>
-                    <td>{{ $User->id }}</td>
+                    <td>{{ $user->id }}</td>
                 </tr>
                 <tr>
                     <th>名称</th>
-                    <td>{{ $User->name }}</td>
+                    <td>{{ $user->name }}</td>
                 </tr>
                 <tr>
                     <th>メールアドレス</th>
-                    <td>{{ $User->email }}</td>
+                    <td>{{ $user->email }}</td>
                 </tr>
             </tbody>
         </table>

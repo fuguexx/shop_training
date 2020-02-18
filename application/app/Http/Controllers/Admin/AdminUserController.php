@@ -3,14 +3,48 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\AdminUserRequest;
+use App\Http\Requests\AdminUser\StoreRequest;
+use App\Http\Requests\AdminUser\UpdateRequest;
 use App\Models\admin\AdminUser;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
-        return view('admin.admin_users.index');
+        $name = $request->get('name', '');
+        $email = $request->get('email', '');
+        $authority = $request->get('authority', 'all');
+        $sort = $request->get('sort', 'id-asc');
+        $pageUnit = (int)$request->get('pageUnit', '10');
+
+        $query = AdminUser::query();
+        switch ($sort) {
+            case 'id-asc':
+                $query = $query->orderBy('id', 'ASC');
+                break;
+            case 'id-desc':
+                $query = $query->orderBy('id', 'DESC');
+                break;
+            case 'name-asc':
+                $query = $query->orderBy('name', 'ASC');
+                break;
+            case 'name-desc':
+                $query = $query->orderBy('name', 'DESC');
+                break;
+            case 'email-asc':
+                $query = $query->orderBy('email', 'ASC');
+                break;
+            case 'email-desc':
+                $query = $query->orderBy('email', 'DESC');
+                break;
+            default:
+                break;
+        }
+
+        $adminUsers = $query->likeName($name)->likeEmail($email)->likeAuthority($authority)->paginate($pageUnit);
+
+        return view('admin.admin_users.index', compact('adminUsers', 'name', 'email', 'authority', 'sort', 'pageUnit'));
     }
 
     /**
@@ -29,9 +63,18 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $hashedPassword = Hash::make($request->get('password'));
+
+        $adminUser = AdminUser::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'is_owner' => $request->is_owner,
+            'password' => $hashedPassword,
+        ]);
+
+        return redirect('admin/admin_users/'.$adminUser->id);
     }
 
     /**
@@ -40,9 +83,9 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(AdminUser $adminUser)
     {
-        //
+        return view('admin.admin_users.show', compact('adminUser'));
     }
 
     /**
@@ -51,9 +94,9 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(AdminUser $adminUser)
     {
-        //
+        return view('admin.admin_users.edit', compact('adminUser'));
     }
 
     /**
@@ -63,9 +106,11 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, AdminUser $adminUser)
     {
-        //
+        $adminUser->update($request->updateParameters());
+
+        return redirect('admin/admin_users/'.$adminUser->id);
     }
 
     /**
@@ -74,8 +119,10 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(AdminUser $adminUser)
     {
-        //
+        $adminUser->delete();
+
+        return redirect('admin/admin_users');
     }
 }

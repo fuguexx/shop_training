@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+
     /**
      * Show the application dashboard.
      *

@@ -2,8 +2,9 @@
 
 namespace App\Models\admin;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * App\Models\AdminUsers
@@ -27,6 +28,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class AdminUser extends Authenticatable
 {
+    use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,4 +51,38 @@ class AdminUser extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function scopeLikeName(Builder $query, ?string $name): Builder
+    {
+        if (is_null($name) || $name === '' ) {
+            return $query;
+        }
+
+        return $query->where('name','like','%'.$name.'%');
+    }
+
+    public function scopeLikeEmail(Builder $query, ?string $email): Builder
+    {
+        if (is_null($email) || $email === '' ) {
+            return $query;
+        }
+
+        return $query->where('email','like','%'.$email);
+    }
+
+    public function scopeLikeAuthority(Builder $query, ?string $authority): Builder
+    {
+        switch ($authority) {
+            case 'owner':
+                return $query->where('is_owner', "1");
+                break;
+            case 'general':
+                return $query->where('is_owner', "0");
+                break;
+            default:
+                return $query->where('is_owner', "1")
+                        ->orWhere('is_owner', "0");
+                break;
+        }
+    }
 }

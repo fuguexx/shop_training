@@ -4,29 +4,29 @@
         <form class="shadow p-3 mt-3" action="{{ route('admin.users.index') }}">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $name) }}" placeholder="名称">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ $name }}" placeholder="名称">
                 </div>
                 <div class="col-md mb-3">
-                    <input type="text" class="form-control" id="email" name="email" value="{{ old('email', $email) }}" placeholder="メールアドレス">
+                    <input type="text" class="form-control" id="email" name="email" value="{{ $email }}" placeholder="メールアドレス">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <select class="custom-select" name="sort">
-                        <option value="id-asc" selected="" @if( old('sort', $sort) == "id-asc") selected @endif>並び替え: ID昇順</option>
-                        <option value="id-desc" @if( old('sort', $sort) == "id-desc") selected @endif>並び替え: ID降順</option>
-                        <option value="name-asc" @if( old('sort', $sort) == "name-asc") selected @endif>並び替え: 名称昇順</option>
-                        <option value="name-desc" @if( old('sort', $sort) == "name-desc") selected @endif>並び替え: 名称降順</option>
-                        <option value="email-asc" @if( old('sort', $sort) == "email-asc") selected @endif>並び替え: メールアドレス昇順</option>
-                        <option value="email-desc" @if( old('sort', $sort) == "email-desc") selected @endif>並び替え: メールアドレス降順</option>
+                        <option value="id-asc" selected="" @if( $sort == "id-asc") selected @endif>並び替え: ID昇順</option>
+                        <option value="id-desc" @if( $sort == "id-desc") selected @endif>並び替え: ID降順</option>
+                        <option value="name-asc" @if( $sort == "name-asc") selected @endif>並び替え: 名称昇順</option>
+                        <option value="name-desc" @if( $sort == "name-desc") selected @endif>並び替え: 名称降順</option>
+                        <option value="email-asc" @if( $sort == "email-asc") selected @endif>並び替え: メールアドレス昇順</option>
+                        <option value="email-desc" @if( $sort == "email-desc") selected @endif>並び替え: メールアドレス降順</option>
                     </select>
                 </div>
                 <div class="col-md-4 mb-3">
                     <select class="custom-select" name="pageUnit">
-                        <option value="10" selected="" @if( old('pageUnit', $pageUnit) == "10") selected @endif>表示: 10件</option>
-                        <option value="20" @if( old('pageUnit', $pageUnit) == "20") selected @endif>表示: 20件</option>
-                        <option value="50" @if( old('pageUnit', $pageUnit) == "50") selected @endif>表示: 50件</option>
-                        <option value="100" @if( old('pageUnit', $pageUnit) == "100") selected @endif>表示: 100件</option>
+                        <option value="10" selected="" @if( $pageUnit == "10") selected @endif>表示: 10件</option>
+                        <option value="20" @if( $pageUnit == "20") selected @endif>表示: 20件</option>
+                        <option value="50" @if( $pageUnit == "50") selected @endif>表示: 50件</option>
+                        <option value="100" @if( $pageUnit == "100") selected @endif>表示: 100件</option>
                     </select>
                 </div>
                 <div class="col-sm mb-3">

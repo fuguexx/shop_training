@@ -6,10 +6,10 @@
                 <a href="{{ route('admin.products.index') }}" class="btn btn-light">一覧</a>
             </li>
             <li class="list-inline-item">
-                <a href="{{ url('admin/products/'.$Product->id.'/edit') }}" class="btn btn-success">編集</a>
+                <a href="{{ url('admin/products/'.$product->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
             <li class="list-inline-item">
-                <form action="{{ url('admin/products/'.$Product->id) }}" method="POST">
+                <form action="{{ url('admin/products/'.$product->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
@@ -21,7 +21,7 @@
             <tbody>
                 <tr>
                     <th style="width:10%;">ID</th>
-                    <td style="width:90%;">{{ $Product->id }}</td>
+                    <td style="width:90%;">{{ $product->id }}</td>
                 </tr>
                 <tr>
                     <th style="width:10%;">商品カテゴリ</th>
@@ -29,15 +29,15 @@
                 </tr>
                 <tr>
                     <th style="width:10%;">名称</th>
-                    <td style="width:90%;">{{ $Product->name }}</td>
+                    <td style="width:90%;">{{ $product->name }}</td>
                 </tr>
                 <tr>
                     <th style="width:10%;">価格</th>
-                    <td style="width:90%;">¥{{ number_format($Product->price) }}</td>
+                    <td style="width:90%;">¥{{ number_format($product->price) }}</td>
                 </tr>
                 <tr>
                     <th style="width:10%;">説明</th>
-                    <td style="width:90%;">{{ $Product->description }}</td>
+                    <td style="width:90%;">{{ $product->description }}</td>
                 </tr>
                 <tr>
                     <th style="width:10%;">イメージ</th>

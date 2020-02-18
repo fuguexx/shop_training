@@ -63,6 +63,8 @@ class Product extends Model
             case 'lteq':
                 $builder = $query->where('price', '<=', $price);
                 break;
+            default:
+                break;
         }
         return $builder;
     }

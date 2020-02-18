@@ -39,8 +39,13 @@ class ProductCategory extends Model
     protected $dates = [
     ];
 
-    public function scopeFilterLikeName($query, $name)
+    public function scopeLikeName(Builder $query, ?string $name): Builder
     {
+        $builder = $query;
+
+        if (is_null($name) || $name === '') {
+            return $builder;
+        }
         return $query->where('name','like','%'.$name.'%');
     }
 }

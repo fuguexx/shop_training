@@ -19,13 +19,13 @@
                     <div class="form-group">
                         <label for="name">名称</label>
                         <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}" placeholder="名称" autofocus="">
-                        @error('name')<strong style="color:#FF0000;">{{ $message }}</strong>@enderror
+                        @error('name')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="price">価格</label>
                         <input type="number" class="form-control " id="price" name="price" value="{{ old('price') }}" placeholder="価格">
-                        @error('price')<strong style="color:#FF0000;">{{ $message }}</strong>@enderror
+                        @error('price')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">
@@ -36,7 +36,7 @@
                     <div class="form-group">
                         <label for="image_path">イメージ</label>
                         <input type="file" class="form-control-file" id="image_path" name="image_path">
-                        @error('image_path')<strong style="color:#FF0000;">{{ $message }}</strong>@enderror
+                        @error('image_path')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <hr class="mb-3">

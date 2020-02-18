@@ -10,16 +10,19 @@
                     <div class="form-group">
                         <label for="name">名称</label>
                         <input type="text" class="form-control " id="name" name="name" value="{{ old('name') }}" placeholder="名称" autofocus="">
+                        @error('name')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="email">メールアドレス</label>
                         <input type="text" class="form-control " id="email" name="email" value="{{ old('email') }}" placeholder="メールアドレス">
+                        @error('email')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">
                         <label for="password">パスワード</label>
                         <input type="password" class="form-control " id="password" name="password" placeholder="パスワード">
+                        @error('password')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">

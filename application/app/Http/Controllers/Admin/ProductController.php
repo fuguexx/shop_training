@@ -17,7 +17,7 @@ class ProductController extends Controller
         $name = $request->get('name', '');
 
         $price = $request->get('price', '');
-        if($price != '') {
+        if ($price != '') {
             $price = (int)$price;
         }
 
@@ -27,7 +27,7 @@ class ProductController extends Controller
         $sort = $request->get('sort', 'id-asc');
 
         $query = Product::query();
-        switch($sort) {
+        switch ($sort) {
             case 'id-asc':
                 $query = $query->orderBy('id', 'ASC');
                 break;
@@ -35,10 +35,16 @@ class ProductController extends Controller
                 $query = $query->orderBy('id', 'DESC');
                 break;
             case 'product-category-asc':
-                $query = $query->orderBy('product_category_id', 'ASC');
+                $query = $query->join('product_categories', 'product_categories.id', '=', 'products.product_category_id')
+                            ->select('products.*')
+                            ->orderBy('products.product_category_id', 'ASC')
+                            ->orderBy('products.id', 'ASC');
                 break;
             case 'product-category-desc':
-                $query = $query->orderBy('product_category_id', 'DESC');
+                $query = $query->join('product_categories', 'product_categories.id', '=', 'products.product_category_id')
+                    ->select('products.*')
+                    ->orderBy('products.product_category_id', 'DESC')
+                    ->orderBy('products.id', 'ASC');
                 break;
             case 'name-asc':
                 $query = $query->orderBy('name', 'ASC');
@@ -54,7 +60,7 @@ class ProductController extends Controller
                 break;
         }
 
-        if($productCategory != 'all') {
+        if ($productCategory != 'all') {
             $query = $query->where('product_category_id', $productCategory);
         }
 
@@ -75,7 +81,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        if($request->image_path != NULL) {
+        if ($request->image_path != NULL || $request->image_path === '' ) {
             $path = $request->file('image_path')->store('public/photo');
         }
 
@@ -90,35 +96,35 @@ class ProductController extends Controller
         return redirect('admin/products/'.$product->id);
     }
 
-    public function show(Product $Product)
+    public function show(Product $product)
     {
-        $categoryName = Product::where('product_category_id', $Product->product_category_id)->first();
+        $categoryName = Product::where('product_category_id', $product->product_category_id)->first();
 
-        $photo = str_replace('public', '',$Product->image_path);
+        $photo = str_replace('public', '',$product->image_path);
 
-        return view('admin.products.show', compact('Product','categoryName', 'photo'));
+        return view('admin.products.show', compact('product','categoryName', 'photo'));
     }
 
-    public function edit(Product $Product)
+    public function edit(Product $product)
     {
         $productCategories = ProductCategory::all();
 
-        $photo = str_replace('public', '',$Product->image_path);
+        $photo = str_replace('public', '',$product->image_path);
 
-        return view('admin.products.edit', compact('Product', 'productCategories', 'photo'));
+        return view('admin.products.edit', compact('product', 'productCategories', 'photo'));
     }
 
-    public function update(ProductRequest $request, Product $Product)
+    public function update(ProductRequest $request, Product $product)
     {
-        if($request->image_path != NULL) {
+        if ($request->image_path != NULL || $request->image_path === '') {
             $path = $request->file('image_path')->store('public/photo');
         }
 
-        if($request->delete_image == "1") {
+        if ($request->delete_image == "1") {
             Product::where('id', $request->id)->update(['image_path' => NULL]);
         }
 
-        $Product->update([
+        $product->update([
             'product_category_id' => $request->product_category_id,
             'name' => $request->name,
             'price' => $request->price,
@@ -126,12 +132,12 @@ class ProductController extends Controller
             'image_path' => $path,
         ]);
 
-        return redirect('admin/products/'.$Product->id);
+        return redirect('admin/products/'.$product->id);
     }
 
-    public function destroy(Product $Product)
+    public function destroy(Product $product)
     {
-        $Product->delete();
+        $product->delete();
 
         return redirect('admin/products');
     }

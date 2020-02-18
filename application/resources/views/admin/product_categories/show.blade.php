@@ -6,10 +6,10 @@
                 <a href="{{ route('admin.product_categories.index') }}" class="btn btn-light">一覧</a>
             </li>
             <li class="list-inline-item">
-                <a href="{{ url('admin/product_categories/'.$ProductCategory->id.'/edit') }}" class="btn btn-success">編集</a>
+                <a href="{{ url('admin/product_categories/'.$productCategory->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
             <li class="list-inline-item">
-                <form action="{{ url('admin/product_categories/'.$ProductCategory->id) }}" method="POST">
+                <form action="{{ url('admin/product_categories/'.$productCategory->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
@@ -21,15 +21,15 @@
             <tbody>
                 <tr>
                     <th>ID</th>
-                    <td>{{ $ProductCategory->id }}</td>
+                    <td>{{ $productCategory->id }}</td>
                 </tr>
                 <tr>
                     <th>名称</th>
-                    <td>{{ $ProductCategory->name }}</td>
+                    <td>{{ $productCategory->name }}</td>
                 </tr>
                 <tr>
                     <th>並び順番号</th>
-                    <td>{{ $ProductCategory->order_no }}</td>
+                    <td>{{ $productCategory->order_no }}</td>
                 </tr>
             </tbody>
         </table>

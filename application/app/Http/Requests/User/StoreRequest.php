@@ -37,10 +37,10 @@ class StoreRequest extends FormRequest
     {
         return [
             'name.required' => '名前は、必ず指定して下さい。',
-            'name.string' => '名前は、文字でして下さい。',
+            'name.string' => '名前は、文字で入力して下さい。',
             'name.max:255' => '名前は、２５５文字以内で入力して下さい。',
             'email.required' => 'メールアドレスは、必ず指定して下さい。',
-            'email.string' => 'メールアドレスは、文字でして下さい。',
+            'email.string' => 'メールアドレスは、文字で入力して下さい。',
             'email.email' => 'メールアドレスの形式で入力して下さい。',
             'email.max:255' => 'メールアドレスは、２５５文字以内で入力して下さい。',
             'email.unique:users' => '登録済みのメールアドレスです。',

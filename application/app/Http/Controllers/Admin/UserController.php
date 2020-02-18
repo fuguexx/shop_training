@@ -18,7 +18,7 @@ class UserController extends Controller
         $pageUnit = (int)$request->get('pageUnit', '10');
 
         $query = User::query();
-        switch($sort) {
+        switch ($sort) {
             case 'id-asc':
                 $query = $query->orderby('id', 'ASC');
                 break;
@@ -79,9 +79,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $User)
+    public function show(User $user)
     {
-        return view('admin.users.show', compact('User'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -90,9 +90,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $User)
+    public function edit(User $user)
     {
-        return view('admin.users.edit', compact('User'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -102,12 +102,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRequest $request, User $User)
+    public function update(UpdateRequest $request, User $user)
     {
-        $User->update($request->updateParameters());
+        $user->update($request->updateParameters());
 
 
-        return redirect('admin/users/'.$User->id);
+        return redirect('admin/users/'.$user->id);
     }
 
     /**
@@ -116,9 +116,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $User)
+    public function destroy(User $user)
     {
-        $User->delete();
+        $user->delete();
 
         return redirect('admin/users');
     }

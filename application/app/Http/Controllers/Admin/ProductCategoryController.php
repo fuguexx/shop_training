@@ -15,7 +15,7 @@ class ProductCategoryController extends Controller
         $pageUnit = (int)$request->get('pageUnit', '10');
 
         $query = ProductCategory::query();
-        switch($sort) {
+        switch ($sort) {
             case 'id-asc':
                 $query = $query->orderBy('id', 'ASC');
                 break;
@@ -36,13 +36,7 @@ class ProductCategoryController extends Controller
                 break;
         }
 
-        if($name != null) {
-            $query->FilterLikeName($name);
-        }
-
-        if($pageUnit != null) {
-            $productCategories = $query->Paginate($pageUnit);
-        }
+        $productCategories = $query->likeName($name)->Paginate($pageUnit);
 
         return view('admin.product_categories.index', compact('productCategories', 'name', 'sort', 'pageUnit'));
     }
@@ -59,26 +53,26 @@ class ProductCategoryController extends Controller
         return redirect('admin/product_categories/'.$productCategory->id);
     }
 
-    public function show(ProductCategory $ProductCategory)
+    public function show(ProductCategory $productCategory)
     {
-        return view('admin.product_categories.show', compact('ProductCategory'));
+        return view('admin.product_categories.show', compact('productCategory'));
     }
 
-    public function edit(ProductCategory $ProductCategory)
+    public function edit(ProductCategory $productCategory)
     {
-        return view('admin.product_categories.edit',compact('ProductCategory'));
+        return view('admin.product_categories.edit',compact('productCategory'));
     }
 
-    public function update(ProductCategoriesRequest $request, ProductCategory $ProductCategory)
+    public function update(ProductCategoriesRequest $request, ProductCategory $productCategory)
     {
-        $ProductCategory->update($request->all());
+        $productCategory->update($request->all());
 
-        return redirect('admin/product_categories/'.$ProductCategory->id);
+        return redirect('admin/product_categories/'.$productCategory->id);
     }
 
-    public function destroy(ProductCategory $ProductCategory)
+    public function destroy(ProductCategory $productCategory)
     {
-        $ProductCategory->delete();
+        $productCategory->delete();
 
         return redirect('admin/product_categories');
     }
