@@ -85,4 +85,15 @@ class AdminUser extends Authenticatable
                 break;
         }
     }
+
+    /**
+     * @param null $ownerNumber
+     * @return bool
+     */
+    public function isOwner($ownerNumber = NULL): bool
+    {
+        $ownerNumber = ($ownerNumber) ? $ownerNumber : $this->is_owner;
+
+        return $ownerNumber == config('owner_id');
+    }
 }

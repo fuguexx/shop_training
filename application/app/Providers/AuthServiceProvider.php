@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\admin\AdminUser;
+use App\Policies\AdminUserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

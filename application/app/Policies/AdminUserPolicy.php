@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\admin\AdminUser;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminUserPolicy
@@ -15,9 +16,18 @@ class AdminUserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function index(AdminUser $adminUser)
+    public function viewAny(User $user)
     {
-        return $adminUser->is_owner === "1";
+        //
+    }
+
+    /**
+     * @param User $user
+     * @param AdminUser $adminUser
+     */
+    public function view(User $user, AdminUser $adminUser)
+    {
+        //
     }
 
     /**
@@ -26,68 +36,44 @@ class AdminUserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(AdminUser $adminUser)
-    {
-        return $adminUser->is_owner === "1";
-    }
-
-    /**
-     * Determine whether the user can restore the admin user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\AdminUser  $adminUser
-     * @return mixed
-     */
-    public function store(AdminUser $adminUser)
-    {
-        return $adminUser->is_owner === "1";
-    }
-
-    /**
-     * Determine whether the user can view the admin user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\AdminUser  $adminUser
-     * @return mixed
-     */
-    public function show(AdminUser $adminUser)
+    public function create(User $user)
     {
         //
     }
 
     /**
-     * Determine whether the user can update the admin user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\AdminUser  $adminUser
-     * @return mixed
+     * @param User $user
+     * @param AdminUser $adminUser
      */
-    public function edit(AdminUser $adminUser)
+    public function update(User $user, AdminUser $adminUser)
     {
         //
     }
 
     /**
-     * Determine whether the user can update the admin user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\AdminUser  $adminUser
-     * @return mixed
+     * @param User $user
+     * @param AdminUser $adminUser
      */
-    public function update(AdminUser $adminUser)
+    public function delete(User $user, AdminUser $adminUser)
     {
         //
     }
 
     /**
-     * Determine whether the user can delete the admin user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\AdminUser  $adminUser
-     * @return mixed
+     * @param User $user
+     * @param AdminUser $adminUser
      */
-    public function destroy(AdminUser $adminUser)
+    public function restore(User $user, AdminUser $adminUser)
     {
-        return $adminUser->is_owner === "1";
+        //
+    }
+
+    /**
+     * @param User $user
+     * @param AdminUser $adminUser
+     */
+    public function forceDelete(User $user, AdminUser $adminUser)
+    {
+        //
     }
 }
