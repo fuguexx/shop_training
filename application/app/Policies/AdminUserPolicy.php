@@ -12,13 +12,14 @@ class AdminUserPolicy
 
     /**
      * @param AdminUser $adminUser
-     * @return bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return bool
      */
-    public function viewAny(AdminUser $adminUser)
+    public function viewAny(AdminUser $adminUser): bool
     {
-        if ($adminUser->isOwner === 1 ) {
+        if ($adminUser->is_owner == 1) {
             return true;
         }
+        return false;
     }
 
     /**
@@ -36,9 +37,12 @@ class AdminUserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(AdminUser $adminUser): bool
     {
-        //
+        if ($adminUser->is_owner == 1) {
+            return true;
+        }
+        return false;
     }
 
     /**

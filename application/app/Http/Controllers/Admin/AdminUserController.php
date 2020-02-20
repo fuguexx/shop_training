@@ -13,8 +13,6 @@ class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
-        $isOwner = Auth::guard('admin')->getUser()->is_owner;
-
         $this->authorize('viewAny', AdminUser::class);
 
         $name = $request->get('name', '');

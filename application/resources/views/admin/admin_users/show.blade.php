@@ -5,9 +5,11 @@
             <li class="list-inline-item">
                 <a href="{{ route('admin.admin_users.index') }}" class="btn btn-light">一覧</a>
             </li>
+
             <li class="list-inline-item">
                 <a href="{{ url('admin/admin_users/'.$adminUser->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
+
             @if(Auth::guard('admin')->user()->is_owner === 1 && Auth::guard('admin')->user()->id != $adminUser->id)
                 <li class="list-inline-item">
                     <form action="{{ url('admin/admin_users/'.$adminUser->id) }}" method="POST">
