@@ -7,11 +7,16 @@ use App\Http\Requests\AdminUser\StoreRequest;
 use App\Http\Requests\AdminUser\UpdateRequest;
 use App\Models\admin\AdminUser;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
     public function index(Request $request)
     {
+        $isOwner = Auth::guard('admin')->getUser()->is_owner;
+
+        $this->authorize('viewAny', AdminUser::class);
+
         $name = $request->get('name', '');
         $email = $request->get('email', '');
         $authority = $request->get('authority', 'all');

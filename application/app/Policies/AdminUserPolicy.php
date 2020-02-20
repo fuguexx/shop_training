@@ -11,23 +11,23 @@ class AdminUserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any admin users.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * @param AdminUser $adminUser
+     * @return bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function viewAny(User $user)
+    public function viewAny(AdminUser $adminUser)
     {
-        //
+        if ($adminUser->isOwner === 1 ) {
+            return true;
+        }
     }
 
     /**
-     * @param User $user
-     * @param AdminUser $adminUser
+     * @param Int $isOwner
+     * @return bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function view(User $user, AdminUser $adminUser)
+    public function view()
     {
-        //
+
     }
 
     /**
@@ -55,24 +55,6 @@ class AdminUserPolicy
      * @param AdminUser $adminUser
      */
     public function delete(User $user, AdminUser $adminUser)
-    {
-        //
-    }
-
-    /**
-     * @param User $user
-     * @param AdminUser $adminUser
-     */
-    public function restore(User $user, AdminUser $adminUser)
-    {
-        //
-    }
-
-    /**
-     * @param User $user
-     * @param AdminUser $adminUser
-     */
-    public function forceDelete(User $user, AdminUser $adminUser)
     {
         //
     }
