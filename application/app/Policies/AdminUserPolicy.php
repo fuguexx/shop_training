@@ -16,10 +16,7 @@ class AdminUserPolicy
      */
     public function viewAny(AdminUser $adminUser): bool
     {
-        if ($adminUser->is_owner == 1) {
-            return true;
-        }
-        return false;
+        return $adminUser->is_owner === 1;
     }
 
     /**
@@ -39,17 +36,14 @@ class AdminUserPolicy
      */
     public function create(AdminUser $adminUser): bool
     {
-        if ($adminUser->is_owner == 1) {
-            return true;
-        }
-        return false;
+        return $adminUser->is_owner === 1;
     }
 
     /**
      * @param User $user
      * @param AdminUser $adminUser
      */
-    public function update(User $user, AdminUser $adminUser)
+    public function update(AdminUser $adminUser)
     {
         //
     }
@@ -58,7 +52,7 @@ class AdminUserPolicy
      * @param User $user
      * @param AdminUser $adminUser
      */
-    public function delete(User $user, AdminUser $adminUser)
+    public function delete(AdminUser $adminUser)
     {
         //
     }
