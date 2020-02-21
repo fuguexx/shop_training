@@ -2,9 +2,11 @@
 @section('content')
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <ul class="list-inline pt-3">
-            <li class="list-inline-item">
-                <a href="{{ route('admin.admin_users.index') }}" class="btn btn-light">一覧</a>
-            </li>
+            @can('viewAny', $adminUser)
+                <li class="list-inline-item">
+                    <a href="{{ route('admin.admin_users.index') }}" class="btn btn-light">一覧</a>
+                </li>
+            @endcan
 
             <li class="list-inline-item">
                 <a href="{{ url('admin/admin_users/'.$adminUser->id.'/edit') }}" class="btn btn-success">編集</a>

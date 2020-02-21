@@ -7,7 +7,6 @@ use App\Http\Requests\AdminUser\StoreRequest;
 use App\Http\Requests\AdminUser\UpdateRequest;
 use App\Models\admin\AdminUser;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
@@ -53,10 +52,13 @@ class AdminUserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize('create', AdminUser::class);
+
         return view('admin.admin_users.create');
     }
 
@@ -68,6 +70,8 @@ class AdminUserController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('create', AdminUser::class);
+
         $hashedPassword = Hash::make($request->get('password'));
 
         $adminUser = AdminUser::create([
@@ -88,6 +92,8 @@ class AdminUserController extends Controller
      */
     public function show(AdminUser $adminUser)
     {
+        $this->authorize('view', AdminUser::class);
+
         return view('admin.admin_users.show', compact('adminUser'));
     }
 
@@ -99,6 +105,8 @@ class AdminUserController extends Controller
      */
     public function edit(AdminUser $adminUser)
     {
+        $this->authorize('update', AdminUser::class);
+
         return view('admin.admin_users.edit', compact('adminUser'));
     }
 
@@ -111,6 +119,8 @@ class AdminUserController extends Controller
      */
     public function update(UpdateRequest $request, AdminUser $adminUser)
     {
+        $this->authorize('update', AdminUser::class);
+
         $adminUser->update($request->updateParameters());
 
         return redirect('admin/admin_users/'.$adminUser->id);
@@ -124,6 +134,8 @@ class AdminUserController extends Controller
      */
     public function destroy(AdminUser $adminUser)
     {
+        $this->authorize('delete', AdminUser::class);
+
         $adminUser->delete();
 
         return redirect('admin/admin_users');

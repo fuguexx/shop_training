@@ -52,6 +52,15 @@ class AdminUser extends Authenticatable
         'password',
     ];
 
+    protected $casts = [
+        'is_owner' => 'boolean',
+    ];
+
+    /**
+     * @param Builder $query
+     * @param string|null $name
+     * @return Builder
+     */
     public function scopeLikeName(Builder $query, ?string $name): Builder
     {
         if (is_null($name) || $name === '' ) {
@@ -61,6 +70,11 @@ class AdminUser extends Authenticatable
         return $query->where('name','like','%'.$name.'%');
     }
 
+    /**
+     * @param Builder $query
+     * @param string|null $email
+     * @return Builder
+     */
     public function scopeLikeEmail(Builder $query, ?string $email): Builder
     {
         if (is_null($email) || $email === '' ) {
@@ -70,6 +84,11 @@ class AdminUser extends Authenticatable
         return $query->where('email','like','%'.$email);
     }
 
+    /**
+     * @param Builder $query
+     * @param string|null $authority
+     * @return Builder
+     */
     public function scopeLikeAuthority(Builder $query, ?string $authority): Builder
     {
         switch ($authority) {

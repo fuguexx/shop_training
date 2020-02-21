@@ -32,15 +32,17 @@
                         <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="パスワード(確認)">
                     </div>
 
-
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="general" name="is_owner" value="0" checked="" {{ old('is_owner', $adminUser->is_owner) == "0" ? 'checked' : '' }}>
-                        <label class="form-check-label" for="general">一般</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input type="radio" class="form-check-input" id="owner" name="is_owner" value="1" {{ old('is_owner', $adminUser->is_owner) == "1" ? 'checked' : '' }}>
-                        <label class="form-check-label" for="owner">オーナー</label>
-                    </div>
+                    @can('isChangeAuthority', $adminUser)
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="owner" name="is_owner" value="1" {{ old('is_owner', $adminUser->is_owner) == "1" ? 'checked' : '' }}>
+                            <label class="form-check-label" for="owner">オーナー</label>
+                        </div>
+                    @else
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="general" name="is_owner" value="0" checked="" {{ old('is_owner', $adminUser->is_owner) == "0" ? 'checked' : '' }}>
+                            <label class="form-check-label" for="general">一般</label>
+                        </div>
+                    @endif
 
                     <hr class="mb-3">
 

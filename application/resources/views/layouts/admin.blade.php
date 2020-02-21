@@ -67,11 +67,13 @@
                                 顧客管理
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ strpos(Request::url(), url('/admin/admin_users')) !== false ? 'active' : null }}" href="/admin/admin_users">
-                                管理者管理
-                            </a>
-                        </li>
+                        @if(Auth::guard('admin')->user()->is_owner === 1)
+                            <li class="nav-item">
+                                <a class="nav-link {{ strpos(Request::url(), url('/admin/admin_users')) !== false ? 'active' : null }}" href="/admin/admin_users">
+                                    管理者管理
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </nav>

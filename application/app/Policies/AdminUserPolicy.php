@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\admin\AdminUser;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserPolicy
 {
@@ -16,44 +17,47 @@ class AdminUserPolicy
      */
     public function viewAny(AdminUser $adminUser): bool
     {
-        return $adminUser->is_owner === 1;
+        return $adminUser->isOwner();
     }
 
     /**
-     * @param Int $isOwner
-     * @return bool|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param AdminUser $adminUser
+     * @return bool
      */
-    public function view()
+    public function view(AdminUser $loginUser, AdminUser $adminUser): bool
     {
-
+        return $loginUser->is_owner || $loginUser->id === $adminUser->id;
     }
 
     /**
-     * Determine whether the user can create admin users.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * @param AdminUser $adminUser
+     * @return bool
      */
     public function create(AdminUser $adminUser): bool
     {
-        return $adminUser->is_owner === 1;
+        return $adminUser->isOwner();
     }
 
     /**
      * @param User $user
      * @param AdminUser $adminUser
      */
-    public function update(AdminUser $adminUser)
+    public function update(AdminUser $adminUser): bool
     {
-        //
+        return $adminUser->isOwner() || $adminUser->isNormal() && $adminUser->id === Auth::guard('admin')->user()->id;
     }
 
     /**
-     * @param User $user
      * @param AdminUser $adminUser
+     * @return bool
      */
-    public function delete(AdminUser $adminUser)
+    public function delete(AdminUser $adminUser): bool
     {
-        //
+        return $adminUser->isOwner() && $adminUser->id != Auth::guard('admin')->user()->id;
+    }
+
+    public function isChangeAuthority(AdminUser $loginUser, AdminUser $adminUser)
+    {
+
     }
 }
