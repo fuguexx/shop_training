@@ -15,9 +15,9 @@ class AdminUserPolicy
      * @param AdminUser $adminUser
      * @return bool
      */
-    public function viewAny(AdminUser $adminUser): bool
+    public function viewAny(AdminUser $loginUser): bool
     {
-        return $adminUser->isOwner();
+        return $loginUser->is_owner;
     }
 
     /**
@@ -26,38 +26,52 @@ class AdminUserPolicy
      */
     public function view(AdminUser $loginUser, AdminUser $adminUser): bool
     {
-        return $loginUser->is_owner || $loginUser->id === $adminUser->id;
+        return $loginUser->is_owner || ($loginUser->id === $adminUser->id);
     }
 
     /**
      * @param AdminUser $adminUser
      * @return bool
      */
-    public function create(AdminUser $adminUser): bool
+    public function create(AdminUser $loginUser): bool
     {
-        return $adminUser->isOwner();
+        return $loginUser->is_owner;
     }
 
     /**
      * @param User $user
      * @param AdminUser $adminUser
      */
-    public function update(AdminUser $adminUser): bool
+    public function update(AdminUser $loginUser, AdminUser $adminUser): bool
     {
-        return $adminUser->isOwner() || $adminUser->isNormal() && $adminUser->id === Auth::guard('admin')->user()->id;
+        return $loginUser->is_owner || ($loginUser->id === $adminUser->id);
     }
 
     /**
      * @param AdminUser $adminUser
      * @return bool
      */
-    public function delete(AdminUser $adminUser): bool
+    public function delete(AdminUser $loginUser, AdminUser $adminUser): bool
     {
-        return $adminUser->isOwner() && $adminUser->id != Auth::guard('admin')->user()->id;
+        return $loginUser->is_owner && $loginUser->id != $adminUser->id;
     }
 
-    public function isChangeAuthority(AdminUser $loginUser, AdminUser $adminUser)
+    public function isChangeAuthority(AdminUser $loginUser, AdminUser $adminUser): bool
     {
+        return $loginUser->is_owner && $loginUser->id != $adminUser->id;
+    }
 
+    public function notChangeAuthority(AdminUser $loginUser, AdminUser $adminUser): bool
+    {
+        switch ($adminUser->is_owner) {
+            case true:
+                return $loginUser->id === $adminUser->id;
+                break;
+            case false:
+                return true;
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -33,16 +33,23 @@
                     </div>
 
                     @can('isChangeAuthority', $adminUser)
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="owner" name="is_owner" value="1" {{ old('is_owner', $adminUser->is_owner) == "1" ? 'checked' : '' }}>
-                            <label class="form-check-label" for="owner">オーナー</label>
-                        </div>
-                    @else
+                        <label>権限</label><br>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" id="general" name="is_owner" value="0" checked="" {{ old('is_owner', $adminUser->is_owner) == "0" ? 'checked' : '' }}>
                             <label class="form-check-label" for="general">一般</label>
                         </div>
-                    @endif
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="owner" name="is_owner" value="1" {{ old('is_owner', $adminUser->is_owner) == "1" ? 'checked' : '' }}>
+                            <label class="form-check-label" for="owner">オーナー</label>
+                        </div>
+                    @elsecan('notChangeAuthority', $adminUser)
+                        <label>権限</label><br>
+                            @if($adminUser->is_owner === true)
+                                オーナー
+                            @else
+                                一般
+                            @endif
+                    @endcan
 
                     <hr class="mb-3">
 

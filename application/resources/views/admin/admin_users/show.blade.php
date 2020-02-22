@@ -12,7 +12,7 @@
                 <a href="{{ url('admin/admin_users/'.$adminUser->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
 
-            @if(Auth::guard('admin')->user()->is_owner === 1 && Auth::guard('admin')->user()->id != $adminUser->id)
+            @can('delete', $adminUser)
                 <li class="list-inline-item">
                     <form action="{{ url('admin/admin_users/'.$adminUser->id) }}" method="POST">
                         @csrf
@@ -20,7 +20,7 @@
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
                 </li>
-            @endif
+            @endcan
         </ul>
 
         <table class="table">

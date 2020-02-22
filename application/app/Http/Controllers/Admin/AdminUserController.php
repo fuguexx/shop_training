@@ -92,7 +92,7 @@ class AdminUserController extends Controller
      */
     public function show(AdminUser $adminUser)
     {
-        $this->authorize('view', AdminUser::class);
+        $this->authorize('view', $adminUser);
 
         return view('admin.admin_users.show', compact('adminUser'));
     }
@@ -105,7 +105,7 @@ class AdminUserController extends Controller
      */
     public function edit(AdminUser $adminUser)
     {
-        $this->authorize('update', AdminUser::class);
+        $this->authorize('update', $adminUser);
 
         return view('admin.admin_users.edit', compact('adminUser'));
     }
@@ -119,7 +119,7 @@ class AdminUserController extends Controller
      */
     public function update(UpdateRequest $request, AdminUser $adminUser)
     {
-        $this->authorize('update', AdminUser::class);
+        $this->authorize('update', $adminUser);
 
         $adminUser->update($request->updateParameters());
 
@@ -134,7 +134,7 @@ class AdminUserController extends Controller
      */
     public function destroy(AdminUser $adminUser)
     {
-        $this->authorize('delete', AdminUser::class);
+        $this->authorize('delete', $adminUser);
 
         $adminUser->delete();
 

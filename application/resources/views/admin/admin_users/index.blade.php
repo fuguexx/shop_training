@@ -51,13 +51,13 @@
                 </div>
             </div>
         </form>
-        @if(Auth::guard('admin')->user()->is_owner === 1)
+        @can('viewAny', Auth::guard('admin')->user())
             <ul class="list-inline pt-3">
                 <li class="list-inline-item">
                     <a href="{{ route('admin.admin_users.create') }}" class="btn btn-success">新規</a>
                 </li>
             </ul>
-        @endif
+        @endcan
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
