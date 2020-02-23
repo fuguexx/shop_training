@@ -14,6 +14,7 @@
                                 <option value="{{ $productCategory->id }}" @if( old('product_category_id') == $productCategory->id) selected @endif>{{ $productCategory->name }}</option>
                             @endforeach
                         </select>
+                        @error('product_category_id')<strong style="color:#FF0000; font-size:80%;">{{ $message }}</strong>@enderror
                     </div>
 
                     <div class="form-group">

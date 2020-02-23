@@ -25,15 +25,16 @@ class ProductCategoriesRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'order_no' => ['required'],
+            'order_no' => ['required', 'numeric'],
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => '名称を入力して下さい。',
-            'order_no.required' => '並び順番号を入力して下さい。',
+            'name.required' => '名称は、必ず入力して下さい。',
+            'order_no.required' => '並び順番号は、必ず入力して下さい。',
+            'order_no.numeric' => '並び順番号は、数値で入力して下さい。',
         ];
     }
 }
