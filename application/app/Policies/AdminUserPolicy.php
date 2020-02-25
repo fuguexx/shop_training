@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\admin\AdminUser;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 
 class AdminUserPolicy
 {
@@ -56,11 +55,21 @@ class AdminUserPolicy
         return $loginUser->is_owner && $loginUser->id != $adminUser->id;
     }
 
+    /**
+     * @param AdminUser $loginUser
+     * @param AdminUser $adminUser
+     * @return bool
+     */
     public function isChangeAuthority(AdminUser $loginUser, AdminUser $adminUser): bool
     {
         return $loginUser->is_owner && $loginUser->id != $adminUser->id;
     }
 
+    /**
+     * @param AdminUser $loginUser
+     * @param AdminUser $adminUser
+     * @return bool
+     */
     public function notChangeAuthority(AdminUser $loginUser, AdminUser $adminUser): bool
     {
         switch ($adminUser->is_owner) {

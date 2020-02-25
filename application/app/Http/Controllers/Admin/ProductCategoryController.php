@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductCategoriesRequest;
+use App\Http\Requests\ProductCategoryRequest;
 use App\Models\admin\ProductCategory;
 
 class ProductCategoryController extends Controller
@@ -34,6 +34,8 @@ class ProductCategoryController extends Controller
             case 'order-no-desc':
                 $query = $query->orderBy('order_no', 'DESC');
                 break;
+            default:
+                break;
         }
 
         $productCategories = $query->likeName($name)->Paginate($pageUnit);
@@ -46,7 +48,7 @@ class ProductCategoryController extends Controller
         return view('admin.product_categories.create');
     }
 
-    public function store(ProductCategoriesRequest $request)
+    public function store(ProductCategoryRequest $request)
     {
         $productCategory = ProductCategory::create($request->all());
 
@@ -63,7 +65,7 @@ class ProductCategoryController extends Controller
         return view('admin.product_categories.edit',compact('productCategory'));
     }
 
-    public function update(ProductCategoriesRequest $request, ProductCategory $productCategory)
+    public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
     {
         $productCategory->update($request->all());
 
@@ -72,6 +74,8 @@ class ProductCategoryController extends Controller
 
     public function destroy(ProductCategory $productCategory)
     {
+        $this->authorize('delete', $productCategory);
+
         $productCategory->delete();
 
         return redirect('admin/product_categories');

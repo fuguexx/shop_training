@@ -45,9 +45,11 @@
                     @elsecan('notChangeAuthority', $adminUser)
                         <label>権限</label><br>
                             @if($adminUser->is_owner === true)
-                                オーナー
+                                <input type="hidden" name="is_owner" value="{{ $adminUser->is_owner }}">
+                                <p>オーナー</p>
                             @else
-                                一般
+                                <input type="hidden" name="is_owner" value="{{ $adminUser->is_owner }}">
+                                <p>一般</p>
                             @endif
                     @endcan
 

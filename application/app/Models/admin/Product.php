@@ -24,6 +24,9 @@ class Product extends Model
     protected $dates = [
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function ProductCategory()
     {
         return $this->belongsTo(ProductCategory::class);

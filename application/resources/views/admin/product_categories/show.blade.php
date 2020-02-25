@@ -8,13 +8,15 @@
             <li class="list-inline-item">
                 <a href="{{ url('admin/product_categories/'.$productCategory->id.'/edit') }}" class="btn btn-success">編集</a>
             </li>
-            <li class="list-inline-item">
-                <form action="{{ url('admin/product_categories/'.$productCategory->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">削除</button>
-                </form>
-            </li>
+            @can('delete', $productCategory)
+                <li class="list-inline-item">
+                    <form action="{{ url('admin/product_categories/'.$productCategory->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </form>
+                </li>
+            @endcan
         </ul>
 
         <table class="table">

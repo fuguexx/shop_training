@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\StoreRequest;
+use App\Http\Requests\Product\UpdateRequest;
 use App\Models\admin\Product;
 use App\Models\admin\ProductCategory;
 
@@ -58,6 +59,8 @@ class ProductController extends Controller
             case 'price-desc':
                 $query = $query->orderBy('price', 'DESC');
                 break;
+            default:
+                break;
         }
 
         if ($productCategory != 'all') {
@@ -69,7 +72,8 @@ class ProductController extends Controller
                 ->paginate($pageUnit);
 
         return view('admin.products.index',
-            compact('products','productCategories', 'productCategory', 'name', 'price', 'priceCompare', 'sort', 'pageUnit'));
+            compact('products','productCategories',
+                'productCategory', 'name', 'price', 'priceCompare', 'sort', 'pageUnit'));
     }
 
     public function create()
@@ -79,7 +83,7 @@ class ProductController extends Controller
         return view('admin.products.create', compact('productCategories'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(StoreRequest $request)
     {
         if ($request->image_path != NULL || $request->image_path === '' ) {
             $path = $request->file('image_path')->store('public/photo');
@@ -114,23 +118,9 @@ class ProductController extends Controller
         return view('admin.products.edit', compact('product', 'productCategories', 'photo'));
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(UpdateRequest $request, Product $product)
     {
-        if ($request->image_path != NULL || $request->image_path === '') {
-            $path = $request->file('image_path')->store('public/photo');
-        }
-
-        if ($request->delete_image == "1") {
-            Product::where('id', $request->id)->update(['image_path' => NULL]);
-        }
-
-        $product->update([
-            'product_category_id' => $request->product_category_id,
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image_path' => $path,
-        ]);
+        $product->update($request->updateParameters());
 
         return redirect('admin/products/'.$product->id);
     }

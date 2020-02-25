@@ -146,6 +146,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => ['price' => '価格',],
 
 ];
