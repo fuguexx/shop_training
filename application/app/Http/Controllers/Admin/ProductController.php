@@ -85,7 +85,17 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $product = Product::create($request->storeParameters());
+        if ($request->image_path != NULL || $request->image_path != '' ) {
+            $path = $request->file('image_path')->store('public/photo');
+        }
+
+        $product = Product::create([
+            'product_category_id' => $request->product_category_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'image_path' => $path,
+            ]);
 
         return redirect('admin/products/'.$product->id);
     }

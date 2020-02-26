@@ -66,13 +66,20 @@ class AdminUserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
     public function store(StoreRequest $request)
     {
         $this->authorize('create', AdminUser::class);
 
-        $adminUser = AdminUser::create($request->storeParameters());
+        $hashedPassword = Hash::make($request->get('password'));
+
+        $adminUser = AdminUser::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'is_owner' => $request->is_owner,
+            'password' => $hashedPassword,
+        ]);
 
         return redirect('admin/admin_users/'.$adminUser->id);
     }
@@ -81,7 +88,7 @@ class AdminUserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function show(AdminUser $adminUser)
     {
@@ -94,7 +101,7 @@ class AdminUserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function edit(AdminUser $adminUser)
     {
@@ -108,7 +115,7 @@ class AdminUserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
     public function update(UpdateRequest $request, AdminUser $adminUser)
     {
@@ -123,7 +130,7 @@ class AdminUserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\Response
      */
     public function destroy(AdminUser $adminUser)
     {

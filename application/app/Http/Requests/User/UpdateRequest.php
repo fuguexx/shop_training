@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UpdateRequest extends FormRequest
 {
     /**
-     * Determine if the users is authorized to make this request.
+     * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
@@ -26,12 +26,13 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         if (is_null($this->password) || $this->password === '') {
-            return [
-                'name' => ['required', 'string', 'max:255',],
-                'email' => ['required', 'string', 'email', 'max:255',
-                    Rule::unique('users')->ignore($this->id),],
-                'image_path' => ['image','mimes:jpeg,jpg,png,gif'],
-            ];
+            if (is_null($this->image_path) || $this->image_path === '') {
+                return [
+                    'name' => ['required', 'string', 'max:255',],
+                    'email' => ['required', 'string', 'email', 'max:255',
+                        Rule::unique('users')->ignore($this->id),],
+                ];
+            }
         }
         return [
             'name' => ['required', 'string', 'max:255',],
@@ -62,23 +63,14 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return array
-     */
     public function updateParameters() :array
     {
-        $path = '';
-
         if ($this->delete_image === "1") {
             return ['image_path' => ''];
         }
 
-        if ($this->image_path != NULL || $this->image_path != '' ) {
-            $path = $this->file('image_path')->store('public/photo');
-        }
-
         if (is_null($this->password) || $this->password === '') {
-            if ($path === '') {
+            if (is_null($this->image_path) || $this->image_path === '') {
                 return [
                     'name' => $this->name,
                     'email' => $this->email,
@@ -89,7 +81,7 @@ class UpdateRequest extends FormRequest
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'image_path' => $path,
+            'image_path' => $this->file('image_path')->store('public/photo'),
         ];
     }
 }
