@@ -13,12 +13,14 @@
 Auth::routes();
 
 Route::namespace('User')->group(function(){
+    Route::get('home', 'HomeController@index')->name('home');
     Route::get('products', 'ProductController@index');
     Route::get('products/{product}', 'ProductController@show');
 });
 
-Route::namespace('User')->middleware(['auth:user'])->group(function(){
-    Route::get('home', 'HomeController@index')->name('home');
+Route::namespace('User')->middleware(['auth:users'])->group(function(){
+    Route::get('users/edit/{users}', 'UserController@edit')->name('users.edit');
+    Route::post('users/{users}', 'UserController@update');
     Route::get('products/{product}/product_reviews/create', 'ProductReviewController@create');
     Route::post('products/{product}/product_reviews', 'ProductReviewController@store');
     Route::get('products/{product}/product_reviews/{product_review}/edit', 'ProductReviewController@edit');

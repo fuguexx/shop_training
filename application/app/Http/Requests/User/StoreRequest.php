@@ -4,11 +4,12 @@ namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class StoreRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
@@ -50,6 +51,28 @@ class StoreRequest extends FormRequest
             'password.confirmed' => 'パスワードとパスワード（確認）が一致しません。',
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function storeParameters(): array
+    {
+        $hashedPassword = Hash::make($this->get('password'));
+
+        $path = '';
+
+        if ($this->image_path != NULL || $this->image_path != '' ) {
+            $path = $this->file('image_path')->store('public/photo');
+        }
+
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $hashedPassword,
+            'image_path' => $path,
+            ];
+    }
+
 }
 
 

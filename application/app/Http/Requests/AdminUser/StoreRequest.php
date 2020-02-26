@@ -4,11 +4,12 @@ namespace App\Http\Requests\AdminUser;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class StoreRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
@@ -48,6 +49,21 @@ class StoreRequest extends FormRequest
             'password.alpha_num' => 'パスワードは、英数字で指定して下さい。',
             'password.min:4' => 'パスワードは、4文字以上にして下さい。',
             'password.confirmed' => 'パスワードとパスワード（確認）が一致しません。',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function storeParameters(): array
+    {
+        $hashedPassword = Hash::make($this->get('password'));
+
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+            'is_owner' => $this->is_owner,
+            'password' => $hashedPassword,
         ];
     }
 }

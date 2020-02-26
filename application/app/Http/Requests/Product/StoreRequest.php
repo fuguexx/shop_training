@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
@@ -40,6 +40,23 @@ class StoreRequest extends FormRequest
             'price.numeric' => '価格は、数値で入力して下さい。',
             'image_path.image' => 'イメージは画像にして下さい。',
             'image_path.mimes' => 'イメージはjpeg,jpg,png,gifタイプのファイルにして下さい。',
+        ];
+    }
+
+    public function storeParameters(): array
+    {
+        $path = '';
+
+        if ($this->image_path != NULL || $this->image_path != '' ) {
+            $path = $this->file('image_path')->store('public/photo');
+        }
+
+        return [
+            'product_category_id' => $this->product_category_id,
+            'name' => $this->name,
+            'price' => $this->price,
+            'description' => $this->description,
+            'image_path' => $path,
         ];
     }
 }

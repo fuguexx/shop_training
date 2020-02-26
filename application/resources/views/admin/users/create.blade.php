@@ -3,7 +3,7 @@
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <div class="row pt-3">
             <div class="col-sm">
-                <form action="{{ url('admin/users') }}" method="POST"　enctype="multipart/form-data">
+                <form action="{{ url('admin/users') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 

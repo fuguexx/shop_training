@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UpdateRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
