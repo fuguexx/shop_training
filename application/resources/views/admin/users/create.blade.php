@@ -3,7 +3,7 @@
     <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-3">
         <div class="row pt-3">
             <div class="col-sm">
-                <form action="{{ url('admin/users') }}" method="POST">
+                <form action="{{ url('admin/users') }}" method="POST"　enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
@@ -28,6 +28,11 @@
                     <div class="form-group">
                         <label for="password-confirm">パスワード(確認)</label>
                         <input type="password" class="form-control" id="password-confirm" name="password_confirmation" placeholder="パスワード(確認)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_path">イメージ</label>
+                        <input type="file" class="form-control-file" id="image_path" name="image_path">
                     </div>
 
                     <hr class="mb-3">

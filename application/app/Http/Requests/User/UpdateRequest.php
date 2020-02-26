@@ -26,11 +26,13 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         if (is_null($this->password) || $this->password === '') {
-            return [
-                'name' => ['required', 'string', 'max:255',],
-                'email' => ['required', 'string', 'email', 'max:255',
-                    Rule::unique('users')->ignore($this->id),],
-            ];
+            if (is_null($this->image_path) || $this->image_path === '') {
+                return [
+                    'name' => ['required', 'string', 'max:255',],
+                    'email' => ['required', 'string', 'email', 'max:255',
+                        Rule::unique('users')->ignore($this->id),],
+                ];
+            }
         }
         return [
             'name' => ['required', 'string', 'max:255',],
@@ -38,6 +40,7 @@ class UpdateRequest extends FormRequest
                 Rule::unique('users')->ignore($this->id),],
             'password' => ['alpha_dash', 'alpha_num', 'min:4','confirmed'],
             'password_confirmation' => ['required'],
+            'image_path' => ['image','mimes:jpeg,jpg,png,gif'],
         ];
     }
 
@@ -55,21 +58,30 @@ class UpdateRequest extends FormRequest
             'password.alpha_num' => 'パスワードは、英数字で指定して下さい。',
             'password.min:4' => 'パスワードは、4文字以上にして下さい。',
             'password.confirmed' => 'パスワードとパスワード（確認）が一致しません。',
+            'image_path.image' => 'イメージは画像にして下さい。',
+            'image_path.mimes' => 'イメージはjpeg,jpg,png,gifタイプのファイルにして下さい。',
         ];
     }
 
     public function updateParameters() :array
     {
+        if ($this->delete_image === "1") {
+            return ['image_path' => ''];
+        }
+
         if (is_null($this->password) || $this->password === '') {
-            return [
-                'name' => $this->name,
-                'email' => $this->email,
-            ];
+            if (is_null($this->image_path) || $this->image_path === '') {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                ];
+            }
         }
         return [
             'name' => $this->name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
+            'image_path' => $this->file('image_path')->store('public/photo'),
         ];
     }
 }

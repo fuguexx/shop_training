@@ -31,6 +31,12 @@
                     <th>メールアドレス</th>
                     <td>{{ $user->email }}</td>
                 </tr>
+                <tr>
+                    <th style="width:10%;">イメージ</th>
+                    <td style="width:90%;">
+                        <img class="img-thumbnail" src="{{ $photo }}">
+                    </td>
+                </tr>
             </tbody>
         </table>
     </main>

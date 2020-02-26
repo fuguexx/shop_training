@@ -8,17 +8,19 @@ class AdminUsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('admin_users')->insert([
-            'name' => '管理者',
-            'email' => 'admin@a.com',
+            'name' => 'オーナー',
+            'email' => 'owner@a.com',
             'password' => Hash::make('pass'),
+            'is_owner' => true,
             'created_at' => new Datetime(),
         ]);
         $fake = Fake::create('ja_JP');
-        for ($i = 0; $i < 13; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('admin_users')->insert([
                 'name' => $fake->name,
                 'email' => $fake->email,
                 'password' => Hash::make('pass'),
+                'is_owner' => $fake->boolean,
                 'created_at' => new Datetime(),
             ]);
         }

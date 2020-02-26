@@ -63,11 +63,16 @@ class UserController extends Controller
     public function store(StoreRequest $request)
     {
         $hashedPassword = Hash::make($request->get('password'));
-
+        
+        if ($request->image_path != NULL || $request->image_path != '' ) {
+            $path = $request->file('image_path')->store('public/photo');
+        }
+  
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $hashedPassword,
+            'image_path' => $path,
         ]);
 
         return redirect('admin/users/'.$user->id);
@@ -81,7 +86,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.show', compact('user'));
+        $photo = str_replace('public', '', $user->image_path);
+
+        return view('admin.users.show', compact('user', 'photo'));
     }
 
     /**
@@ -92,7 +99,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $photo = str_replace('public', '', $user->image_path);
+
+        return view('admin.users.edit', compact('user', 'photo'));
     }
 
     /**

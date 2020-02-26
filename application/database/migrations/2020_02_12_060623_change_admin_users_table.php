@@ -25,8 +25,6 @@ class ChangeAdminUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('admin_users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('admin_users');
     }
 }

@@ -85,7 +85,7 @@ class ProductController extends Controller
 
     public function store(StoreRequest $request)
     {
-        if ($request->image_path != NULL || $request->image_path === '' ) {
+        if ($request->image_path != NULL || $request->image_path != '' ) {
             $path = $request->file('image_path')->store('public/photo');
         }
 
