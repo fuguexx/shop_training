@@ -11,6 +11,8 @@
                         @csrf
                         @method('POST')
 
+                        <input type ="hidden" name="id" value="{{ $user->id }}">
+
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">ユーザ名</label>
 

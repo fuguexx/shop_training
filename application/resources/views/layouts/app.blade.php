@@ -31,7 +31,7 @@
                     @method('GET')
 
                     <select class="custom-select mr-sm-2" name="product_category">
-                        <option value="" selected="">すべてのカテゴリー</option>
+                        <option value="all" selected="">すべてのカテゴリー</option>
                         @foreach($productCategories as $productCategory)
                             <option value="{{ $productCategory->id }}">{{ $productCategory->name }}</option>
                         @endforeach

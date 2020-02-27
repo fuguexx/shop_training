@@ -13,9 +13,11 @@ class UserController extends Controller
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user)
+    public function edit()
     {
         $user = Auth::guard('users')->user();
+
+        $photo = "";
 
         if ($user->image_path != NULL || $user->image_path != '') {
             $photo = str_replace('public', '', $user->image_path);
@@ -29,8 +31,10 @@ class UserController extends Controller
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(UpdateRequest $request, User $user)
+    public function update(UpdateRequest $request)
     {
+        $user = Auth::guard('users')->user();
+
         $user->update($request->updateParameters());
 
         return redirect('/home');
