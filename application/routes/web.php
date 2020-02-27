@@ -12,22 +12,22 @@
 */
 Auth::routes();
 
-Route::namespace('User')->group(function(){
+Route::namespace('User')->as('users.')->group(function(){
     Route::get('home', 'HomeController@index')->name('home');
-    Route::get('products', 'ProductController@index');
-    Route::get('products/{product}', 'ProductController@show');
+    Route::get('products', 'ProductController@index')->name('products.index');
+    Route::get('products/{product}', 'ProductController@show')->name('products.show');
 });
 
-Route::namespace('User')->middleware(['auth:users'])->group(function(){
-    Route::get('users/edit/{users}', 'UserController@edit')->name('users.edit');
-    Route::post('users/{users}', 'UserController@update');
-    Route::get('products/{product}/product_reviews/create', 'ProductReviewController@create');
-    Route::post('products/{product}/product_reviews', 'ProductReviewController@store');
-    Route::get('products/{product}/product_reviews/{product_review}/edit', 'ProductReviewController@edit');
-    Route::post('products/{product}/product_reviews/{product_review}', 'ProductReviewController@update');
+Route::namespace('User')->as('users.')->middleware(['auth:users'])->group(function(){
+    Route::get('users/edit/{users}', 'UserController@edit')->name('edit');
+    Route::post('users/{users}', 'UserController@update')->name('update');
+    Route::get('products/{product}/product_reviews/create', 'ProductReviewController@create')->name('product_review.create');
+    Route::post('products/{product}/product_reviews', 'ProductReviewController@store')->name('product_review.store');
+    Route::get('products/{product}/product_reviews/{product_review}/edit', 'ProductReviewController@edit')->name('product_review.edit');
+    Route::post('products/{product}/product_reviews/{product_review}', 'ProductReviewController@update')->name('product_review.update');
 });
 
-Route::redirect('/', '/home');
+Route::redirect('/', '/users/home');
 
 
 /*

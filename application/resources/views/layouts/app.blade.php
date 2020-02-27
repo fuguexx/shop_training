@@ -21,17 +21,20 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-            <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}</a>
+            <a class="navbar-brand" href="/home">{{ config('app.name', 'Laravel') }}</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="form-inline my-2 my-lg-0" method="get" action="#">
+                <form class="form-inline my-2 my-lg-0" method="get" action="{{ url('products') }}">
                     @method('GET')
 
                     <select class="custom-select mr-sm-2" name="product_category">
                         <option value="" selected="">すべてのカテゴリー</option>
+                        @foreach($productCategories as $productCategory)
+                            <option value="{{ $productCategory->id }}">{{ $productCategory->name }}</option>
+                        @endforeach
                     </select>
                     <input class="form-control mr-sm-2" type="search" name="keyword" value="" placeholder="商品検索">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
@@ -44,7 +47,7 @@
                                 {{ Auth::guard('users')->user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('users/edit/'.Auth::guard('users')->user()->id) }}">顧客情報編集</a>
+                                <a class="dropdown-item" href="{{ url('users/edit/'.Auth::guard('users')->user()->id) }}">ユーザー情報編集</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
                                 <form id="logout-form" class="d-none" action="{{ route('logout') }}" method="POST">
@@ -65,11 +68,7 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="row">
-                <main role="main" class="col-sm-12 px-4 py-2">
-                    @yield('content')
-                </main>
-            </div>
+            @yield('content')
         </div>
     </body>
 </html>

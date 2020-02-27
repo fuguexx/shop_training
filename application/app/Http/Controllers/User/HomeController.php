@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\admin\ProductCategory;
+
 class HomeController extends Controller
 {
     /**
@@ -11,6 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $productCategories = ProductCategory::all();
+
+        return view('users.home', compact('productCategories'));
     }
 }
