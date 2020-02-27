@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AdminUser\StoreRequest;
 use App\Http\Requests\AdminUser\UpdateRequest;
 use App\Models\admin\AdminUser;
-use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {

@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         if (strpos($uri, '/admin/') === 0 || $uri === '/admin') {
             config([
                 'session.cookie' => config('const.session_cookie_admin'),
-                'session.table' => config('const.ssession_table_admin'),
+                'session.table' => config('const.session_table_admin'),
             ]);
         }
     }
