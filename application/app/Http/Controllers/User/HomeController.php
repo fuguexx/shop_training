@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Models\admin\Product;
-use App\Models\admin\ProductCategory;
 
 class HomeController extends Controller
 {
@@ -12,14 +11,14 @@ class HomeController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = ProductCategory::query();
-        $productCategories = $query->orderBy('order_no', 'ASC')->get();
+        $categoryId = $request->get('product_category', 'all');
+        $productKeyword = $request->get('keyword', '');
 
         $query = Product::query();
         $products = $query->orderBy('updated_at', 'DESC')->take(4)->get();
 
-        return view('users.home', compact('productCategories', 'products'));
+        return view('users.home', compact( 'products', 'categoryId', 'productKeyword'));
     }
 }

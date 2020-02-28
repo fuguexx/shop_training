@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\Front\UpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +14,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        $user = Auth::guard('users')->user();
+        $user = Auth::guard('user')->user();
 
         $photo = "";
 
@@ -33,7 +32,7 @@ class UserController extends Controller
      */
     public function update(UpdateRequest $request)
     {
-        $user = Auth::guard('users')->user();
+        $user = Auth::guard('user')->user();
 
         $user->update($request->updateParameters());
 

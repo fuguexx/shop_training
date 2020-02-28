@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\ViewComposers;
+namespace App\Http\ViewComposers\Front;
 
 use Illuminate\View\View;
+use App\Models\admin\ProductCategory;
 
 /**
  * Class LayoutComposer
@@ -15,9 +16,10 @@ class LayoutComposer
      */
     public function compose(View $view)
     {
+        $productCategories = ProductCategory::orderBy('order_no', 'ASC')->get();
+
         $view->with([
-            'loginUser' => Auth::user(),
+            'productCategories' => $productCategories,
         ]);
     }
-
 }

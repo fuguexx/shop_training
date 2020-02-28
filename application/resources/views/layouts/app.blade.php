@@ -10,7 +10,7 @@
         <title>{{ config('app.name', 'Shopping') }}</title>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -30,24 +30,24 @@
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{ url('products') }}">
                     @method('GET')
 
-                    <select class="custom-select mr-sm-2" name="product_category">
+                    <select id="product_category" class="custom-select mr-sm-2" name="product_category">
                         <option value="all" selected="">すべてのカテゴリー</option>
                         @foreach($productCategories as $productCategory)
-                            <option value="{{ $productCategory->id }}">{{ $productCategory->name }}</option>
+                            <option value="{{ $productCategory->id }}" @if( $categoryId == $productCategory->id) selected @endif>{{ $productCategory->name }}</option>
                         @endforeach
                     </select>
-                    <input class="form-control mr-sm-2" type="search" name="keyword" value="" placeholder="商品検索">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+                    <input class="form-control mr-sm-2" type="search" name="keyword" value="{{ $productKeyword }}" placeholder="商品検索">
+                    <button id="button" class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
                 </form>
 
                 <ul class="navbar-nav ml-auto">
-                    @if(Auth::guard('users')->check())
+                    @if(Auth::guard('user')->check())
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ Auth::guard('users')->user()->name }}
+                                {{ Auth::guard('user')->user()->name }}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('users/edit/'.Auth::guard('users')->user()->id) }}">ユーザー情報編集</a>
+                                <a class="dropdown-item" href="{{ url('users/edit/'.Auth::guard('user')->user()->id) }}">ユーザー情報編集</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();">ログアウト</a>
                                 <form id="logout-form" class="d-none" action="{{ route('logout') }}" method="POST">
@@ -66,9 +66,9 @@
                 </ul>
             </div>
         </nav>
-
         <div class="container-fluid">
             @yield('content')
         </div>
     </body>
 </html>
+

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\Front as Front;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,10 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composers([
+            Front\LayoutComposer::class => [
+                'layouts.app',
+            ]
+        ]);
     }
 }

@@ -11,13 +11,33 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = ProductCategory::query();
-        $productCategories = $query->orderBy('order_no', 'ASC')->get();
-
         $categoryId = $request->get('product_category', 'all');
-        $productName = $request->get('keyword', '');
+        $productKeyword = $request->get('keyword', '');
+        $sort = $request->get('sort', 'review_rank');
 
-        return view('users.products.index', compact('productCategories'));
+        if ($categoryId === 'all' && $productKeyword === NULL) {
+            return redirect('/home');
+        }
+
+        $productCategory = Product::where('product_category_id', $categoryId)->first();
+
+        $query = Product::query();
+        if ($productKeyword != '') {
+            $query = $query->whereLikeName($productKeyword);
+        }
+
+        if ($categoryId != 'all') {
+            $query = $query->where('product_category_id', $categoryId);
+        }
+        $productProperties = $query->paginate(15);
+
+
+        return view('users.products.index',
+            compact('productProperties','productCategory', 'categoryId', 'productKeyword'));
+    }
+
+    public function show(Request $request)
+    {
 
     }
 }

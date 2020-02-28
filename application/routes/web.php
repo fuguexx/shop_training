@@ -18,7 +18,7 @@ Route::namespace('User')->as('users.')->group(function(){
     Route::get('products/{product}', 'ProductController@show')->name('products.show');
 });
 
-Route::namespace('User')->as('users.')->middleware(['auth:users'])->group(function(){
+Route::namespace('User')->as('users.')->middleware(['auth:user'])->group(function(){
     Route::get('users/edit/{users}', 'UserController@edit')->name('edit');
     Route::post('users/{users}', 'UserController@update')->name('update');
     Route::get('products/{product}/product_reviews/create', 'ProductReviewController@create')->name('product_review.create');
