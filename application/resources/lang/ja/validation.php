@@ -146,6 +146,10 @@ return [
     |
     */
 
-    'attributes' => ['price' => '価格',],
-
+    'attributes' => [
+        'price' => '価格',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'name' => 'ユーザー名',
+        ],
 ];

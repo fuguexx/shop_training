@@ -68,6 +68,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime'
     ];
 
+    /**
+     * @param Builder $query
+     * @param string|null $name
+     * @return Builder
+     */
     public function scopeLikeName(Builder $query, ?string $name): Builder
     {
         if (is_null($name) || $name === '' ) {
@@ -77,6 +82,11 @@ class User extends Authenticatable
         return $query->where('name','like','%'.$name.'%');
     }
 
+    /**
+     * @param Builder $query
+     * @param string|null $email
+     * @return Builder
+     */
     public function scopeLikeEmail(Builder $query, ?string $email): Builder
     {
         if (is_null($email) || $email === '' ) {

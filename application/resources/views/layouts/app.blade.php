@@ -30,14 +30,14 @@
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{ url('products') }}">
                     @method('GET')
 
-                    <select id="product_category" class="custom-select mr-sm-2" name="product_category">
+                    <select class="custom-select mr-sm-2" name="product_category">
                         <option value="all" selected="">すべてのカテゴリー</option>
                         @foreach($productCategories as $productCategory)
                             <option value="{{ $productCategory->id }}" @if( $categoryId == $productCategory->id) selected @endif>{{ $productCategory->name }}</option>
                         @endforeach
                     </select>
                     <input class="form-control mr-sm-2" type="search" name="keyword" value="{{ $productKeyword }}" placeholder="商品検索">
-                    <button id="button" class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button>
                 </form>
 
                 <ul class="navbar-nav ml-auto">

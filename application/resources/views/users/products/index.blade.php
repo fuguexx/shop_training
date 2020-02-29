@@ -5,7 +5,7 @@
             <div class="row">
                 @if($productProperties->isNotEmpty())
                     <div class="col-md border shadow-sm py-2 d-flex">
-                        <div>検索結果 {{ count($productProperties) }}件 のうち 1-15件 <span class="font-weight-bold">@if(isset($productCategory)){{ $productCategory->ProductCategory->name }} @endif</span> @if(isset($productKeyword)) : <span class="text-danger">"{{ $productKeyword }}"</span>@endif</div>
+                        <div>検索結果 {{ count($productProperties) }}件 のうち {{ $productProperties->firstItem() }}-{{ $productProperties->lastItem() }}件 <span class="font-weight-bold">@if(isset($productCategory)){{ $productCategory->ProductCategory->name }} @endif</span> @if(isset($productKeyword)) : <span class="text-danger">"{{ $productKeyword }}"</span>@endif</div>
                         <form class="ml-auto" action="{{ url('products') }}">
                             <label>
                                 <select class="custom-select" name="sort" onchange="event.preventDefault();$(this).parent('form').submit();">

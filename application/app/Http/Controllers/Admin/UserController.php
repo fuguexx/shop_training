@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\User\StoreRequest;
 use App\Http\Requests\User\UpdateRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -47,7 +46,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -58,22 +57,11 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(StoreRequest $request)
     {
-        $hashedPassword = Hash::make($request->get('password'));
-        
-        if ($request->image_path != NULL || $request->image_path != '' ) {
-            $path = $request->file('image_path')->store('public/photo');
-        }
-  
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $hashedPassword,
-            'image_path' => $path,
-        ]);
+        $user = User::create($request->storeParameters());
 
         return redirect('admin/users/'.$user->id);
     }
@@ -82,7 +70,7 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(User $user)
     {
@@ -95,7 +83,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
@@ -109,12 +97,11 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(UpdateRequest $request, User $user)
     {
         $user->update($request->updateParameters());
-
 
         return redirect('admin/users/'.$user->id);
     }
@@ -123,7 +110,7 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy(User $user)
     {

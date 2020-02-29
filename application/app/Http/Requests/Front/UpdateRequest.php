@@ -83,13 +83,30 @@ class UpdateRequest extends FormRequest
                     'name' => $this->name,
                     'email' => $this->email,
                 ];
+            } else {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'image_path' => $path,
+                ];
             }
         }
-        return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'password' => Hash::make($this->password),
-            'image_path' => $path,
-        ];
+
+        if ($this->password != NULL || $this->password != '') {
+            if ($path === '') {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => Hash::make($this->password),
+                ];
+            } else {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => Hash::make($this->password),
+                    'image_path' => $path,
+                ];
+            }
+        }
     }
 }

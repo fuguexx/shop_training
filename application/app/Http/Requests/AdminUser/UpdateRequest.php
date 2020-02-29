@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UpdateRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the users is authorized to make this request.
      *
      * @return bool
      */
@@ -61,17 +61,35 @@ class UpdateRequest extends FormRequest
     public function updateParameters() :array
     {
         if (is_null($this->password) || $this->password === '') {
-            return [
-                'name' => $this->name,
-                'email' => $this->email,
-                'is_owner' => $this->is_owner,
-            ];
+            if (is_null($this->is_owner) || $this->is_owner === '') {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                ];
+            } else {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'is_owner' => $this->is_owner,
+                ];
+            }
         }
-        return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'is_owner' => $this->is_owner,
-            'password' => Hash::make($this->password),
-        ];
+
+        if ($this->password != NULL || $this->password != '') {
+            if (is_null($this->is_owner) || $this->is_owner === '') {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'password' => Hash::make($this->password),
+                ];
+            } else {
+                return [
+                    'name' => $this->name,
+                    'email' => $this->email,
+                    'is_owner' => $this->is_owner,
+                    'password' => Hash::make($this->password),
+                ];
+            }
+        }
     }
 }
