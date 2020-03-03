@@ -33,6 +33,14 @@ class Product extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function productReviews()
+    {
+        return $this->hasMany('App\Models\ProductReview', 'product_id', 'id');
+    }
+
+    /**
      * @param Builder $query
      * @param string|null $name
      * @return Builder

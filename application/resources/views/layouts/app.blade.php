@@ -11,10 +11,12 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/front.js') }}"></script>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" rel="stylesheet">
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -28,7 +30,6 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="form-inline my-2 my-lg-0" method="get" action="{{ url('products') }}">
-                    @method('GET')
 
                     <select class="custom-select mr-sm-2" name="product_category">
                         <option value="all" selected="">すべてのカテゴリー</option>
