@@ -39,9 +39,12 @@
                                     <h5 class="card-title">{{ $productProperty->name }}</h5>
                                 </a>
                                 <p class="card-text">¥{{ number_format($productProperty->price) }}</p>
-                                <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-wished="false">
-                                    <i class="far fa-star"></i>
-                                </a>
+
+                                <form id="wish_submit" action="{{ url('products') }}">
+                                    <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-wished="false">
+                                        <i class="far fa-star"></i>
+                                    </a>
+                                </form>
                             </div>
                         </div>
                     </div>
