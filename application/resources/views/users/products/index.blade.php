@@ -40,11 +40,11 @@
                                 </a>
                                 <p class="card-text">¥{{ number_format($productProperty->price) }}</p>
 
-                                <form id="wish_submit" action="{{ url('products') }}">
-                                    <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-wished="false">
+                                @if(Auth::guard('user')->check())
+                                    <a id="wish_submit" class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-user-id="{{ Auth::guard('user')->user()->id }}" data-wished="false">
                                         <i class="far fa-star"></i>
                                     </a>
-                                </form>
+                                @endif
                             </div>
                         </div>
                     </div>

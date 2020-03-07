@@ -12,6 +12,9 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+        $wishedParamaters = $request->all();
+        dd($wishedParamaters);
+        
         $categoryId = $request->get('product_category', 'all');
         $productKeyword = $request->get('keyword', '');
         $sort = $request->get('sort', 'review_rank');

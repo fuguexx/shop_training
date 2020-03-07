@@ -1,20 +1,34 @@
-$(function(){
-    $("#submit_select").change(function(){
+$(function() {
+    $("#submit_select").change(function() {
         $("#submit_form").submit();
     });
 });
 
-$(function(){
-    $(".toggle_wish i").click(function(){
-        if($(this).hasClass('fas fa-star') === false){
-            $(this).removeClass('far fa-star').addClass('fas fa-star');
-            $("#wish_submit").submit(function(){
-                var productId = $(".toggle_wish").getAttribute('data-product-id');
-                var wishedFlag = $(".toggle_wish").getAttribute('data-wished');
+$(function() {
+    $("#wish_submit i").click(function() {
+        var wishParamaters = document.getElementById('wish_submit').dataset;
+
+        if(($(this).hasClass('fas fa-star') === false) && wishParamaters.wished == "false") {
+            console.log(this);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "products",
+                type: "post",
+                data: {
+                    'userId': wishParamaters.userId,
+                    'productId': wishParamaters.productId
+                }
+            }).done(function() {
+                $("#wish_submit i").removeClass('far fa-star').addClass('fas fa-star');
+                wishParamaters.wished = "true";
+            }).fail(function() {
+                alert('エラーです。');
             });
-            console.log(wishedFlag);
-        } else {
+        } else if (($(this).hasClass('fas fa-star') === true) && wishParamaters.wished == "false") {
             $(this).removeClass('fas fa-star').addClass('far fa-star');
+            wishParamaters.wished = "false";
         }
     });
 });
