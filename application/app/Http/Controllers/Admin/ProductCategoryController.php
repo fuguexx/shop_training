@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductCategoryRequest;
-use App\Models\admin\ProductCategory;
+use App\Models\ProductCategory;
 
 class ProductCategoryController extends Controller
 {

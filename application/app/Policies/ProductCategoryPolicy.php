@@ -2,34 +2,14 @@
 
 namespace App\Policies;
 
-use App\Models\admin\ProductCategory;
-use App\Models\admin\Product;
+use App\Models\ProductCategory;
+use App\Models\Product;
 use App\Models\admin\AdminUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductCategoryPolicy
 {
     use HandlesAuthorization;
-
-    public function viewAny(): bool
-    {
-
-    }
-
-    public function view(): bool
-    {
-
-    }
-
-    public function create(): bool
-    {
-
-    }
-
-    public function update(): bool
-    {
-
-    }
 
     /**
      * @param AdminUser $loginUser

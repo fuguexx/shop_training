@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\admin;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,7 +37,15 @@ class Product extends Model
      */
     public function productReviews()
     {
-        return $this->hasMany('App\Models\ProductReview', 'product_id', 'id');
+        return $this->hasMany(ProductReview::class, 'product_id', 'id');
+    }
+
+    /**
+     * @return bool
+     */
+    public function productWishBool(int $user): bool
+    {
+        return $this->hasMany(WishList::class, 'product_id', 'id')->where('user_id', $user)->exists();
     }
 
     /**

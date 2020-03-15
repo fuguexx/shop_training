@@ -5,11 +5,11 @@ $(function() {
 });
 
 $(function() {
-    $("#wish_submit i").click(function() {
-        var wishParamaters = document.getElementById('wish_submit').dataset;
+    $(".toggle_wish").click(function() {
+        let starElement = $(this).children('i');
+        let parameters = this.dataset;
 
-        if(($(this).hasClass('fas fa-star') === false) && wishParamaters.wished == "false") {
-            console.log(this);
+        if((starElement.hasClass('fas fa-star') === false) && parameters.wished == "false") {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -17,18 +17,41 @@ $(function() {
                 url: "products",
                 type: "post",
                 data: {
-                    'userId': wishParamaters.userId,
-                    'productId': wishParamaters.productId
+                    'userId': parameters.userId,
+                    'productId': parameters.productId
                 }
             }).done(function() {
-                $("#wish_submit i").removeClass('far fa-star').addClass('fas fa-star');
-                wishParamaters.wished = "true";
+                starElement.removeClass('far fa-star').addClass('fas fa-star');
+                parameters.wished = "true";
             }).fail(function() {
                 alert('エラーです。');
             });
-        } else if (($(this).hasClass('fas fa-star') === true) && wishParamaters.wished == "false") {
-            $(this).removeClass('fas fa-star').addClass('far fa-star');
-            wishParamaters.wished = "false";
+        }
+    });
+});
+
+$(function() {
+    $(".toggle_wish").click(function() {
+        let starElement = $(this).children('i');
+        let parameters = this.dataset;
+
+        if ((starElement.hasClass('fas fa-star') === true) && parameters.wished == "true") {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "products",
+                type: "DELETE",
+                data: {
+                    'userId': parameters.userId,
+                    'productId': parameters.productId,
+                }
+            }).done(function() {
+                starElement.removeClass('fas fa-star').addClass('far fa-star');
+                parameters.wished = "false";
+            }).fail(function() {
+                alert('エラーです。');
+            });
         }
     });
 });

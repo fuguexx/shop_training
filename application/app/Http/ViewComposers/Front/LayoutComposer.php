@@ -3,7 +3,7 @@
 namespace App\Http\ViewComposers\Front;
 
 use Illuminate\View\View;
-use App\Models\admin\ProductCategory;
+use App\Models\ProductCategory;
 
 /**
  * Class LayoutComposer

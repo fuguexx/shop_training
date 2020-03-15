@@ -12,7 +12,9 @@
 
                             <label>
                                 <select id="submit_select" class="custom-select" name="sort" onchange="event.preventDefault();$(this).parent('form').submit();">
-                                    <option value="review_rank" selected="" @if( $sort == "review_rank") selected @endif>並び替え: レビューの評価順</option>
+                                    @if(Auth::guard('user')->check())
+                                        <option value="review_rank" selected="" @if( $sort == "review_rank") selected @endif>並び替え: レビューの評価順</option>
+                                    @endif
                                     <option value="price-asc" @if( $sort == "price-asc") selected @endif>並び替え: 価格の安い順</option>
                                     <option value="price-desc" @if( $sort == "price-desc") selected @endif>並び替え: 価格の高い順</option>
                                     <option value="updated_at-desc" @if( $sort == "updated_at-desc") selected @endif>並び替え: 最新商品</option>
@@ -41,9 +43,15 @@
                                 <p class="card-text">¥{{ number_format($productProperty->price) }}</p>
 
                                 @if(Auth::guard('user')->check())
-                                    <a id="wish_submit" class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-user-id="{{ Auth::guard('user')->user()->id }}" data-wished="false">
-                                        <i class="far fa-star"></i>
-                                    </a>
+                                    @if(($productProperty->productWishBool(Auth::guard('user')->user()->id)) == false )
+                                        <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-user-id="{{ Auth::guard('user')->user()->id }}" data-wished="false">
+                                            <i class="far fa-star"></i>
+                                        </a>
+                                    @else
+                                        <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-user-id="{{ Auth::guard('user')->user()->id }}" data-wished="true">
+                                            <i class="fas fa-star"></i>
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>

@@ -3,18 +3,13 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\admin\Product;
-use App\Models\admin\ProductCategory;
-use App\Models\ProductReview;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
-    {
-        $wishedParamaters = $request->all();
-        dd($wishedParamaters);
-        
+    {        
         $categoryId = $request->get('product_category', 'all');
         $productKeyword = $request->get('keyword', '');
         $sort = $request->get('sort', 'review_rank');
