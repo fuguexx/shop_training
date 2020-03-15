@@ -43,7 +43,7 @@
                                 <p class="card-text">¥{{ number_format($productProperty->price) }}</p>
 
                                 @if(Auth::guard('user')->check())
-                                    @if(($productProperty->productWishBool(Auth::guard('user')->user()->id)) == false )
+                                    @if(($productProperty->isWish(Auth::guard('user')->user()->id)) == false )
                                         <a class="toggle_wish" data-product-id="{{ $productProperty->id }}" data-user-id="{{ Auth::guard('user')->user()->id }}" data-wished="false">
                                             <i class="far fa-star"></i>
                                         </a>

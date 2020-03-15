@@ -43,7 +43,7 @@ class Product extends Model
     /**
      * @return bool
      */
-    public function productWishBool(int $user): bool
+    public function isWish(int $user): bool
     {
         return $this->hasMany(WishList::class, 'product_id', 'id')->where('user_id', $user)->exists();
     }
