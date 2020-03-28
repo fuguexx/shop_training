@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class ProductReview extends Model
 {
@@ -23,4 +22,12 @@ class ProductReview extends Model
 
     protected $dates = [
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function reviewer()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

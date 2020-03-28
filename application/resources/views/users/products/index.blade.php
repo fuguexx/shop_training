@@ -5,7 +5,7 @@
             <div class="row">
                 @if($productProperties->isNotEmpty())
                     <div class="col-md border shadow-sm py-2 d-flex">
-                        <div>検索結果 {{ count($productProperties) }}件 のうち {{ $productProperties->firstItem() }}-{{ $productProperties->lastItem() }}件 <span class="font-weight-bold">@if(isset($productCategory)){{ $productCategory->ProductCategory->name }} @endif</span> @if(isset($productKeyword)) : <span class="text-danger">"{{ $productKeyword }}"</span>@endif</div>
+                        <div>検索結果 {{ count($productProperties) }}件 のうち {{ $productProperties->firstItem() }}-{{ $productProperties->lastItem() }}件 <span class="font-weight-bold">{{ $productCategory->name }}</span> @if(isset($productKeyword)) : <span class="text-danger">"{{ $productKeyword }}"</span>@endif</div>
                         <form id="submit_form" class="ml-auto" action="{{ url('products') }}">
                             <input type ="hidden" name="product_category" value="{{ $categoryId }}">
                             <input type ="hidden" name="keyword" value="{{ $productKeyword }}">
@@ -34,7 +34,7 @@
                     <div class="col-md-2">
                         <div class="card mb-4">
                             <a href="{{ url('products/'.$productProperty->id) }}" target="_blank">
-                                <img class="card-img-top bd-placeholder-img" src="{{ str_replace('public', '', $productProperty->image_path) }}">
+                                <img class="card-img-top bd-placeholder-img" src="{{ $productProperty->image_path }}">
                             </a>
                             <div class="card-body">
                                 <a href="{{ url('products/'.$productProperty->id) }}" target="_blank">
@@ -63,7 +63,7 @@
                 <div class="col-md">
                     <nav>
                         <ul class="pagination">
-                        
+                            {{ $productProperties->appends(['product_category' => $categoryId, 'keyword' => $productKeyword])->links() }}
                         </ul>
                     </nav>
                 </div>

@@ -74,9 +74,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $photo = str_replace('public', '', $user->image_path);
-
-        return view('admin.users.show', compact('user', 'photo'));
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -87,9 +85,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $photo = str_replace('public', '', $user->image_path);
-
-        return view('admin.users.edit', compact('user', 'photo'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**

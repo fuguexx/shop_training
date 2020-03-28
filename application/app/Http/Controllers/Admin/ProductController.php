@@ -92,20 +92,16 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $categoryName = Product::where('product_category_id', $product->product_category_id)->first();
+        $categorizedProduct = Product::where('product_category_id', $product->product_category_id)->first();
 
-        $photo = str_replace('public', '',$product->image_path);
-
-        return view('admin.products.show', compact('product','categoryName', 'photo'));
+        return view('admin.products.show', compact('product','categorizedProduct'));
     }
 
     public function edit(Product $product)
     {
         $productCategories = ProductCategory::all();
 
-        $photo = str_replace('public', '',$product->image_path);
-
-        return view('admin.products.edit', compact('product', 'productCategories', 'photo'));
+        return view('admin.products.edit', compact('product', 'productCategories'));
     }
 
     public function update(UpdateRequest $request, Product $product)

@@ -24,20 +24,17 @@ class Product extends Model
     protected $dates = [
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function ProductCategory()
+    public function getImagePathAttribute($value)
     {
-        return $this->belongsTo(ProductCategory::class);
+        return str_replace('public', '', $value);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function productReviews()
+    public function productCategory()
     {
-        return $this->hasMany(ProductReview::class, 'product_id', 'id');
+        return $this->belongsTo(ProductCategory::class);
     }
 
     /**

@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <th style="width:10%;">商品カテゴリ</th>
-                    <td style="width:90%;">{{ $categoryName->ProductCategory->name }}</td>
+                    <td style="width:90%;">{{ $categorizedProduct->productCategory->name }}</td>
                 </tr>
                 <tr>
                     <th style="width:10%;">名称</th>
@@ -42,7 +42,7 @@
                 <tr>
                     <th style="width:10%;">イメージ</th>
                     <td style="width:90%;">
-                        <img class="img-thumbnail" src="{{ $photo }}">
+                        <img class="img-thumbnail" src="{{ $product->image_path }}">
                     </td>
                 </tr>
             </tbody>

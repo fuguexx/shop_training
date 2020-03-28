@@ -58,7 +58,11 @@
                                     <input type="checkbox" class="form-check-input" id="delete_image" name="delete_image" value="1">
                                     <label for="delete_image">削除</label>
                                 </div>
-                                <img class="img-thumbnail" width="100" src="{{ $photo }}" alt="イメージ画像">
+                                @if(is_null($user->image_path) || $user->image_path === '')
+
+                                @else
+                                    <img class="img-thumbnail" width="100" src="{{ $user->image_path }}" alt="イメージ画像">
+                                @endif
                             </div>
                         </div>
 

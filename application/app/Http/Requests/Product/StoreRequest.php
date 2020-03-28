@@ -38,6 +38,7 @@ class StoreRequest extends FormRequest
             'name.required' => '名前は、必ず指定して下さい。',
             'price.required' => '価格は、必ず指定して下さい。',
             'price.numeric' => '価格は、数値で入力して下さい。',
+            'price.min:0' => '価格は、0以上で入力して下さい。',
             'image_path.image' => 'イメージは画像にして下さい。',
             'image_path.mimes' => 'イメージはjpeg,jpg,png,gifタイプのファイルにして下さい。',
         ];

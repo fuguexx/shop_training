@@ -68,6 +68,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime'
     ];
 
+    public function getImagePathAttribute($value)
+    {
+        return str_replace('public', '', $value);
+    }
+
     /**
      * @param Builder $query
      * @param string|null $name

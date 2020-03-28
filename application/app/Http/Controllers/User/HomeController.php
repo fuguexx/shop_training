@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\WishList;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -19,6 +21,10 @@ class HomeController extends Controller
         $query = Product::query();
         $products = $query->orderBy('updated_at', 'DESC')->take(4)->get();
 
-        return view('users.home', compact( 'products', 'categoryId', 'productKeyword'));
+        if(Auth::guard('user')->user() != null) {
+            $wishLists = WishList::where('user_id', Auth::guard('user')->user()->id)->get();
+        }
+
+        return view('users.home', compact( 'products', 'wishLists', 'categoryId', 'productKeyword'));
     }
 }

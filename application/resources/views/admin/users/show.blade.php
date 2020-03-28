@@ -34,7 +34,7 @@
                 <tr>
                     <th style="width:10%;">イメージ</th>
                     <td style="width:90%;">
-                        <img class="img-thumbnail" src="{{ $photo }}">
+                        <img class="img-thumbnail" src="{{ $user->image_path }}">
                     </td>
                 </tr>
             </tbody>

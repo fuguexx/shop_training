@@ -41,7 +41,7 @@
                         <label for="delete_image">削除</label>
                     </div>
                     <div>
-                        <img class="img-thumbnail" src="{{ $photo }}">
+                        <img class="img-thumbnail" src="{{ $user->image_path }}">
                     </div>
 
                     <hr class="mb-3">

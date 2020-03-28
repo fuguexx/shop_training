@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductReview;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,8 +16,7 @@ class ProductController extends Controller
         $categoryId = $request->get('product_category', 'all');
         $productKeyword = $request->get('keyword', '');
         $sort = $request->get('sort', 'review_rank');
-
-        $productCategory = Product::where('product_category_id', $categoryId)->first();
+        $productCategory = ProductCategory::where('id', $categoryId)->first();
 
         if ($categoryId === 'all' && $productKeyword === NULL) {
             return redirect('/home');
@@ -29,13 +31,20 @@ class ProductController extends Controller
             $query = $query->where('product_category_id', $categoryId);
         }
 
+        if (Auth::guard('user')->user() != null) {
+            switch ($sort) {
+                case 'review_rank':
+                    $query = $query->join('product_reviews', 'product_reviews.product_id', '=', 'products.id')
+                    ->select('products.*')
+                    ->groupBy('product_reviews.product_id')
+                    ->orderByRaw('AVG(rank) DESC');
+                    break;
+                default:
+                    break;
+            }
+        }
+
         switch ($sort) {
-            case 'review_rank':
-                $query = $query->join('product_reviews', 'product_reviews.product_id', '=', 'products.id')
-                ->select('products.*')
-                ->groupBy('product_reviews.product_id')
-                ->orderByRaw('AVG(rank) DESC');
-                break;
             case 'price-asc':
                 $query = $query->orderBy('price', 'ASC');
                 break;
@@ -54,8 +63,13 @@ class ProductController extends Controller
             compact('productProperties','productCategory', 'categoryId', 'productKeyword', 'sort'));
     }
 
-    public function show(Request $request)
+    public function show(Request $request, Product $product)
     {
+        $categoryId = $request->get('product_category', 'all');
+        $productKeyword = $request->get('keyword', '');
 
+        $productReviews = ProductReview::where('product_id', $product->id)->get();
+
+        return view('users.products.show', compact('product', 'productReviews', 'categoryId', 'productKeyword'));
     }
 }

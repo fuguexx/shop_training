@@ -16,13 +16,7 @@ class UserController extends Controller
     {
         $user = Auth::guard('user')->user();
 
-        $photo = "";
-
-        if ($user->image_path != NULL || $user->image_path != '') {
-            $photo = str_replace('public', '', $user->image_path);
-        }
-
-        return view('users.edit', compact('user', 'photo'));
+        return view('users.edit', compact('user'));
     }
 
     /**
