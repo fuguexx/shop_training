@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Product;
+namespace App\Http\Requests\ProductReview;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,51 +23,36 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        if (is_null($this->image_path) || $this->image_path === '') {
-            return [
-                'product_category_id' => ['required', 'numeric'],
-                'name' => ['required'],
-                'price' => ['required', 'numeric', 'min:0'],
-            ];
-        }
         return [
-            'product_category_id' => ['required', 'numeric'],
-            'name' => ['required'],
-            'price' => ['required', 'numeric', 'min:0'],
-            'image_path' => ['image','mimes:jpeg,jpg,png,gif'],
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string', 'max:255'],
+            'rank' => ['required', 'numeric', 'between:1,5'],
         ];
     }
 
     public function messages()
     {
         return [
-            'product_category_id.required' => '商品カテゴリーは、必ず選択して下さい。',
-            'name.required' => '名前は、必ず指定して下さい。',
-            'price.required' => '価格は、必ず指定して下さい。',
-            'price.numeric' => '価格は、数値で入力して下さい。',
-            'image_path.image' => 'イメージは画像にして下さい。',
-            'image_path.mimes' => 'イメージはjpeg,jpg,png,gifタイプのファイルにして下さい。',
+            'title.required' => 'タイトルは、必ず指定してください。',
+            'title.string' => 'タイトルは、文字で入力して下さい。',
+            'title.max:255' => 'タイトルは、２５５文字以内で入力して下さい。',
+            'body.required' => '本文は、必ず指定してください。',
+            'body.string' => '本文は、文字で入力して下さい。',
+            'body.max:255' => '本文は、２５５文字以内で入力して下さい。',
+            'rank.required' => '評価は、必ず選択して下さい。',
+            'rank.numeric' => '評価は、数値で入力して下さい。',
+            'rank.between:1,5' => '評価は、1〜5の整数で入力して下さい。',
         ];
     }
 
     public function updateParameters() :array
     {
-        if ($this->delete_image === "1") {
-            return ['image_path' => ''];
-        }
-
-        if (is_null($this->image_path) || $this->image_path === '') {
-            return [
-                'product_category_id' => $this->product_category_id,
-                'name' => $this->name,
-                'price' => $this->price,
-            ];
-        }
         return [
-            'product_category_id' => $this->product_category_id,
-            'name' => $this->name,
-            'price' => $this->price,
-            'image_path' => $this->file('image_path')->store('public/photo'),
+            'product_id' => $this->productId,
+            'user_id' => $this->userId,
+            'title' => $this->title,
+            'body' => $this->body,
+            'rank' => $this->rank,
         ];
     }
 }

@@ -21,10 +21,10 @@ class HomeController extends Controller
         $query = Product::query();
         $products = $query->orderBy('updated_at', 'DESC')->take(4)->get();
 
-        if(Auth::guard('user')->user() != null) {
+        if (Auth::guard('user')->user() != null) {
             $wishLists = WishList::where('user_id', Auth::guard('user')->user()->id)->get();
         }
 
-        return view('users.home', compact( 'products', 'wishLists', 'categoryId', 'productKeyword'));
+        return view('users.home', compact('products', 'wishLists', 'categoryId', 'productKeyword'));
     }
 }

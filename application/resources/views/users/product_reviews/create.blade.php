@@ -22,27 +22,27 @@
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="rank1" name="rank" value="1"　@if( old('rank') == "1" ) checked @endif checked="">
+                            <input type="radio" class="form-check-input" id="rank1" name="rank" value="1"　@if( old('rank') === "1" ) checked @endif checked="">
                             <label class="form-check-label" for="rank1">星1つ</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="rank2" name="rank" value="2" @if( old('rank') == "2" ) checked @endif>
+                            <input type="radio" class="form-check-input" id="rank2" name="rank" value="2" @if( old('rank') === "2" ) checked @endif>
                             <label class="form-check-label" for="rank2">星2つ</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="rank3" name="rank" value="3" @if( old('rank') == "3" ) checked @endif>
+                            <input type="radio" class="form-check-input" id="rank3" name="rank" value="3" @if( old('rank') === "3" ) checked @endif>
                             <label class="form-check-label" for="rank3">星3つ</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="rank4" name="rank" value="4" @if( old('rank') == "4" ) checked @endif>
+                            <input type="radio" class="form-check-input" id="rank4" name="rank" value="4" @if( old('rank') === "4" ) checked @endif>
                             <label class="form-check-label" for="rank4">星4つ</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="rank5" name="rank" value="5" @if( old('rank') == "5" ) checked @endif>
+                            <input type="radio" class="form-check-input" id="rank5" name="rank" value="5" @if( old('rank') === "5" ) checked @endif>
                             <label class="form-check-label" for="rank5">星5つ</label>
                         </div>
                 

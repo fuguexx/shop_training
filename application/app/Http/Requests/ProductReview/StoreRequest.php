@@ -54,8 +54,8 @@ class StoreRequest extends FormRequest
     public function storeParameters(): array
     {
         return [
-            'product_id' =>$this->productId,
-            'user_id' =>$this->userId,
+            'product_id' => $this->productId,
+            'user_id' => $this->userId,
             'title' => $this->title,
             'body' => $this->body,
             'rank' => $this->rank,

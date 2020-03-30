@@ -12,11 +12,13 @@ class WishProductController extends Controller
     {
         $userId = $request->get('userId');
         $productId = $request->get('productId');
-        
-        WishList::create([
-            'user_id' => $userId,
-            'product_id' => $productId,
-        ]);
+
+        if (WishList::where('user_id', $userId)->where('product_id', $productId)->exists() === false) {
+            WishList::create([
+                'user_id' => $userId,
+                'product_id' => $productId,
+            ]);
+        }
     }
 
     public function delete(Request $request)
@@ -24,7 +26,8 @@ class WishProductController extends Controller
         $userId = $request->get('userId');
         $productId = $request->get('productId');
 
-        $query = WishList::query();
-        $query->where('user_id', '=', $userId)->where('product_id', '=', $productId)->delete();
+        if (WishList::where('user_id', $userId)->where('product_id', $productId)->exists() === true) {
+            WishList::where('user_id', '=', $userId)->where('product_id', '=', $productId)->delete();
+        }
     }
 }

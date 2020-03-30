@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\admin\AdminUser;
-use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AdminUserPolicy
@@ -11,7 +10,7 @@ class AdminUserPolicy
     use HandlesAuthorization;
 
     /**
-     * @param AdminUser $adminUser
+     * @param AdminUser $loginUser
      * @return bool
      */
     public function viewAny(AdminUser $loginUser): bool
@@ -20,6 +19,7 @@ class AdminUserPolicy
     }
 
     /**
+     * @param AdminUser $loginUser
      * @param AdminUser $adminUser
      * @return bool
      */
@@ -38,8 +38,9 @@ class AdminUserPolicy
     }
 
     /**
-     * @param User $user
+     * @param AdminUser $loginUser
      * @param AdminUser $adminUser
+     * @return bool
      */
     public function update(AdminUser $loginUser, AdminUser $adminUser): bool
     {
@@ -47,6 +48,7 @@ class AdminUserPolicy
     }
 
     /**
+     * @param AdminUser $loginUser
      * @param AdminUser $adminUser
      * @return bool
      */

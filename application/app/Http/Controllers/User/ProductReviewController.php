@@ -11,7 +11,7 @@ use App\Models\ProductReview;
 
 class ProductReviewController extends Controller
 {
-    public function create(Product $product, Request $request)
+    public function create(Request $request, Product $product)
     {
         $categoryId = $request->get('product_category', 'all');
         $productKeyword = $request->get('keyword', '');
@@ -26,13 +26,22 @@ class ProductReviewController extends Controller
         return redirect('products/'.$product->id);
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, Product $product, ProductReview $productReview)
     {
-        
+        $categoryId = $request->get('product_category', 'all');
+        $productKeyword = $request->get('keyword', '');
+
+        $this->authorize('update', $productReview);
+
+        return view('users.product_reviews.edit', compact('categoryId', 'productKeyword', 'product', 'productReview'));
     }
 
-    public function update(UpdateRequest $request)
+    public function update(UpdateRequest $request, Product $product, ProductReview $productReview)
     {
-        
+        $this->authorize('update', $productReview);
+
+        $productReview->update($request->updateParameters());
+
+        return redirect('products/'.$product->id);
     }
 }

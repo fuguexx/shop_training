@@ -68,7 +68,7 @@ class ProductController extends Controller
         $categoryId = $request->get('product_category', 'all');
         $productKeyword = $request->get('keyword', '');
 
-        $productReviews = ProductReview::where('product_id', $product->id)->get();
+        $productReviews = ProductReview::where('product_id', $product->id)->orderBy('created_at', 'DESC')->get();
 
         return view('users.products.show', compact('product', 'productReviews', 'categoryId', 'productKeyword'));
     }

@@ -28,6 +28,6 @@ class ProductReview extends Model
      */
     public function reviewer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

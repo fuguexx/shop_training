@@ -67,6 +67,7 @@ class Product extends Model
     public function scopeWherePriceCompare(Builder $query, ?string $priceCompare, ?string $price): Builder
     {
         $builder = $query;
+        $price = (int)$price;
 
         if (is_null($price) || $price === '' ) {
             return $builder;

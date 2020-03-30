@@ -55,7 +55,13 @@
                                 <img src="{{ str_replace('public', '', $productReview->reviewer->image_path) }}" width="30" height="30" class="mr-3">
                                 <div class="media-body">
                                     <h6>{{ $productReview->reviewer->name}}</h6>
-                                    <h5>{{ $productReview->title }}</h5>
+                                        @can('update',$productReview)
+                                            <a href="{{ url('products/'.$productReview->product_id.'/product_reviews/'.$productReview->id.'/edit') }}">
+                                                <h5>{{ $productReview->title }}</h5>
+                                            </a>
+                                        @elsecan('notUpdate',$productReview)
+                                            <h5>{{ $productReview->title }}</h5>
+                                        @endcan
                                     <div class="text-warning">{{ config('consts.rank')[$productReview->rank] }}</div>
                                     {{ $productReview->body }}
                                 </div>

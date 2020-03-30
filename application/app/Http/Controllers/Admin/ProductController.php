@@ -16,15 +16,9 @@ class ProductController extends Controller
 
         $productCategory = $request->get('productCategory','all');
         $name = $request->get('name', '');
-
         $price = $request->get('price', '');
-        if ($price != '') {
-            $price = (int)$price;
-        }
-
         $priceCompare = $request->get('priceCompare', 'gteq');
         $pageUnit = (int)$request->get('pageUnit', '10');
-
         $sort = $request->get('sort', 'id-asc');
 
         $query = Product::query();
